@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaTodoAPp.Views.TodoTaskView"
+             x:DataType="vm:TodoTaskViewModel">
+    <UserControl.Styles>
+        <Style Selector="TextBlock.completed">
+            <Setter Property="Opacity" Value="0.5"/>
+            <Setter Property="TextDecorations" Value="Strikethrough"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <DockPanel Margin="10">
+        <CheckBox DockPanel.Dock="Left"
+                  VerticalAlignment="Center"
+                  CornerRadius="20"
+                  Padding="0"
+                  Margin="0 0 10 0"
+                  Cursor="Hand"
+                  IsChecked="{Binding Completed}" />
+        <Button Content="Delete"
+                DockPanel.Dock="Right"
+                VerticalAlignment="Center"
+                Margin="10 0 0 0" />
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                    Cursor="Hand"
+                    Tapped="ToggleCompleted">
+            <TextBlock FontSize="16" FontWeight="Bold"
+                       Classes.completed="{Binding Completed}"
+                       Text="{Binding Description}" />
+            <TextBlock FontSize="12"
+                       Opacity="0.8"
+                       Text="{Binding Created}" />
+        </StackPanel>
+    </DockPanel>
+</UserControl>
