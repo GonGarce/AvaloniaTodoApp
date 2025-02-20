@@ -11,5 +11,8 @@
   
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="Assets/Icons.axaml" />
+        <StyleInclude Source="Assets/Colors.axaml" />
+        <StyleInclude Source="Assets/Buttons.axaml" />
     </Application.Styles>
 </Application>

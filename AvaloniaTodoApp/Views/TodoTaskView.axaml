@@ -8,24 +8,28 @@
              x:DataType="vm:TodoTaskViewModel">
     <UserControl.Styles>
         <Style Selector="TextBlock.completed">
-            <Setter Property="Opacity" Value="0.5"/>
-            <Setter Property="TextDecorations" Value="Strikethrough"/>
+            <Setter Property="Opacity" Value="0.5" />
+            <Setter Property="TextDecorations" Value="Strikethrough" />
         </Style>
     </UserControl.Styles>
-    
-    <DockPanel Margin="10">
-        <CheckBox DockPanel.Dock="Left"
+
+    <Grid HorizontalAlignment="Stretch" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <CheckBox Grid.Column="0"
                   VerticalAlignment="Center"
                   CornerRadius="20"
                   Padding="0"
                   Margin="0 0 10 0"
                   Cursor="Hand"
                   IsChecked="{Binding Completed}" />
-        <Button Content="Delete"
-                DockPanel.Dock="Right"
-                VerticalAlignment="Center"
-                Margin="10 0 0 0" />
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+        <StackPanel Grid.Column="1"
+                    Background="Transparent"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
                     Cursor="Hand"
                     Tapped="ToggleCompleted">
             <TextBlock FontSize="16" FontWeight="Bold"
@@ -35,5 +39,13 @@
                        Opacity="0.8"
                        Text="{Binding Created}" />
         </StackPanel>
-    </DockPanel>
+        <Button Grid.Column="2"
+                DockPanel.Dock="Right"
+                Classes="icon danger"
+                VerticalAlignment="Center"
+                Margin="10 0 0 0"
+                Command="{Binding DeleteCommand}">
+            <PathIcon Data="{StaticResource Delete}" />
+        </Button>
+    </Grid>
 </UserControl>

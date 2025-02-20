@@ -1,0 +1,41 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+            <Button Classes="icon danger">
+                <PathIcon Data="{StaticResource Delete}" />
+            </Button>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Button Icon Style -->
+    <Style Selector="Button.icon">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
+    </Style>
+    <Style Selector="Button.icon:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon:focused /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon > PathIcon">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+    </Style>
+    <!-- Button Icon Colors -->
+    <Style Selector="Button.icon.danger:pointerover > PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColor}"/>
+    </Style>
+    <Style Selector="Button.icon.danger:pressed > PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}"/>
+    </Style>
+</Styles>
