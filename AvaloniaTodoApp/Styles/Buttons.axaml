@@ -39,4 +39,10 @@
     <Style Selector="Button.icon.danger:pressed > PathIcon">
         <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}"/>
     </Style>
+    <Style Selector="Button.icon.primary:pointerover > PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
+    </Style>
+    <Style Selector="Button.icon.primary:pressed > PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColorDark}"/>
+    </Style>
 </Styles>

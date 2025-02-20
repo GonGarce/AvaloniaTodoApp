@@ -16,13 +16,50 @@
     </Design.DataContext>
 
     <DockPanel>
-        <TextBox DockPanel.Dock="Top" Margin="20" Watermark="Buy some fruit" />
+        <TextBox DockPanel.Dock="Top"
+                 Watermark="{Binding Watermark}"
+                 Margin="20 20 20 10" Padding="8"
+                 Text="{Binding NewTaskText}">
+            <TextBox.InnerRightContent>
+                <Button Classes="icon primary" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        IsDefault="True" Command="{Binding AddTaskCommand}">
+                    <PathIcon Data="{StaticResource AddRegular}" />
+                </Button>
+            </TextBox.InnerRightContent>
+        </TextBox>
+        <DockPanel DockPanel.Dock="Top" Margin="20 0">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <TabControl SelectedIndex="{Binding SelectedTab}">
+                    <TabItem Header="All" />
+                    <TabItem Header="Pending" />
+                    <TabItem Header="Important" />
+                </TabControl>
+            </StackPanel>
+            <!--<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Classes="icon primary" HorizontalAlignment="Center">
+                    <PathIcon Data="{StaticResource EyeHideRegular}" />
+                </Button>
+                <Button Classes="icon" HorizontalAlignment="Center">
+                    <PathIcon Data="{StaticResource OptionsRegular}" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuItem Header="Close" />
+                            <MenuItem Header="-" />
+                            <MenuItem Header="Option 2">
+                                <MenuItem.Icon>
+                                    <PathIcon Data="{StaticResource OptionsRegular}" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>-->
+        </DockPanel>
+
         <ScrollViewer>
             <ItemsControl Background="Transparent"
                           Margin="20 0"
-                          ItemsSource="{Binding Tasks}">
-
-            </ItemsControl>
+                          ItemsSource="{Binding Tasks}" />
         </ScrollViewer>
     </DockPanel>
 </Window>

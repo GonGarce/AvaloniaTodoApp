@@ -24,6 +24,9 @@ public partial class TodoTaskViewModel : ViewModelBase
 
     [ObservableProperty]
     private bool _completed;
+    
+    [ObservableProperty]
+    private bool _important;
 
     [ObservableProperty]
     private DateTime? _creationDate;
@@ -50,5 +53,6 @@ public partial class TodoTaskViewModel : ViewModelBase
     public void ToggleCompleted()
     {
         Completed = !Completed;
+        WeakReferenceMessenger.Default.Send(new CompleteTodoTaskMessage(this));
     }
 }
