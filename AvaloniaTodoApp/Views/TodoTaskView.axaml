@@ -11,41 +11,47 @@
             <Setter Property="Opacity" Value="0.5" />
             <Setter Property="TextDecorations" Value="Strikethrough" />
         </Style>
+        <Style Selector="Border.row:pointerover">
+            <Setter Property="Background" Value="#F3F3F3" />
+        </Style>
+        <Style Selector="Border.row:focus">
+            <Setter Property="Background" Value="#F3F3F3" />
+        </Style>
     </UserControl.Styles>
 
-    <Grid HorizontalAlignment="Stretch" Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <CheckBox Grid.Column="0"
-                  VerticalAlignment="Center"
-                  CornerRadius="20"
-                  Padding="0"
-                  Margin="0 0 10 0"
-                  Cursor="Hand"
-                  IsChecked="{Binding Completed}" />
-        <StackPanel Grid.Column="1"
-                    Background="Transparent"
-                    Orientation="Vertical"
+    <Border Classes="row" Padding="10" Cursor="Hand" Tapped="ToggleCompleted" CornerRadius="8">
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0"
+                      VerticalAlignment="Center"
+                      CornerRadius="20"
+                      Padding="0"
+                      Margin="0 0 10 0"
+                      IsChecked="{Binding Completed}"
+                      Command="{Binding ToggleCompletedCommand}"/>
+            <StackPanel Grid.Column="1"
+                        Background="Transparent"
+                        Orientation="Vertical"
+                        VerticalAlignment="Center">
+                <TextBlock FontSize="16" FontWeight="Bold"
+                           Classes.completed="{Binding Completed}"
+                           Text="{Binding Description}" />
+                <TextBlock FontSize="12"
+                           Opacity="0.8"
+                           Text="{Binding Created}" />
+            </StackPanel>
+            <Button Grid.Column="2"
+                    DockPanel.Dock="Right"
+                    Classes="icon danger"
                     VerticalAlignment="Center"
-                    Cursor="Hand"
-                    Tapped="ToggleCompleted">
-            <TextBlock FontSize="16" FontWeight="Bold"
-                       Classes.completed="{Binding Completed}"
-                       Text="{Binding Description}" />
-            <TextBlock FontSize="12"
-                       Opacity="0.8"
-                       Text="{Binding Created}" />
-        </StackPanel>
-        <Button Grid.Column="2"
-                DockPanel.Dock="Right"
-                Classes="icon danger"
-                VerticalAlignment="Center"
-                Margin="10 0 0 0"
-                Command="{Binding DeleteCommand}">
-            <PathIcon Data="{StaticResource Delete}" />
-        </Button>
-    </Grid>
+                    Margin="10 0 0 0"
+                    Command="{Binding DeleteCommand}">
+                <PathIcon Data="{StaticResource Delete}" />
+            </Button>
+        </Grid>
+    </Border>
 </UserControl>

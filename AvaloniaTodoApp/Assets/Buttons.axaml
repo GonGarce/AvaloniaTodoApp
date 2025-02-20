@@ -14,6 +14,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="36" />
         <Setter Property="Height" Value="36" />
+        <Setter Property="Cursor" Value="Hand" />
     </Style>
     <Style Selector="Button.icon:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />

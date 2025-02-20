@@ -45,6 +45,8 @@ public partial class TodoTaskViewModel : ViewModelBase
     {
         WeakReferenceMessenger.Default.Send(new RemoveTodoTaskMessage(this));
     }
+    
+    [RelayCommand]
     public void ToggleCompleted()
     {
         Completed = !Completed;
