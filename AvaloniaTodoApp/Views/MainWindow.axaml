@@ -16,11 +16,19 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
+    <Window.KeyBindings>
+        <KeyBinding Gesture="Ctrl+K" />
+    </Window.KeyBindings>
+    
     <DockPanel>
         <TextBox DockPanel.Dock="Top"
+                 Name="NewTaskInput"
                  Watermark="{Binding Watermark}"
-                 Margin="20 20 20 10" Padding="8"
+                 Margin="20 20 20 6" Padding="8"
                  Text="{Binding NewTaskText}">
+            <TextBox.InnerLeftContent>
+                <Button Name="SearchButton" HotKey="Ctrl+K" IsVisible="False" />
+            </TextBox.InnerLeftContent>
             <TextBox.InnerRightContent>
                 <Button Classes="icon primary" HorizontalAlignment="Right" VerticalAlignment="Center"
                         IsDefault="True" Command="{Binding AddTaskCommand}">
@@ -38,8 +46,8 @@
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Classes="icon primary"
-                        IsEnabled="{Binding !!UndoCount}"
-                        Command="{Binding UndoCommand}">
+                        Command="{Binding UndoCommand}"
+                        HotKey="Ctrl+Z">
                     <PathIcon Data="{StaticResource ArrowUndoRegular}" />
                 </Button>
                 <Button Classes="icon primary"

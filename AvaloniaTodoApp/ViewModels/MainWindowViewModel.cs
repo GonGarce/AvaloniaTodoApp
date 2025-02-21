@@ -27,6 +27,10 @@ public partial class MainWindowViewModel : ViewModelBase
         DoneTaskCount = _taskChangeSubject
             .Select(change => change.Tasks)
             .Select(tasks => tasks.Count(task => task.Completed));
+        _taskInputTextSubject
+            .DistinctUntilChanged()
+            //.Throttle(TimeSpan.FromMilliseconds(400))
+            .Subscribe(_ => _taskChangeSubject.OnNext(_taskChangeSubject.Value));
 
         _taskChangeSubject.OnNext(_taskChangeSubject.Value.With([
             new TodoTaskViewModel(new TodoTask(1, "Buy cookies", null, DateTime.Now.Subtract(TimeSpan.FromDays(3)))),
@@ -58,7 +62,9 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     private readonly Memento.Memento _memento = new();
-    
+
+    private readonly Subject<string> _taskInputTextSubject = new();
+
     private readonly BehaviorSubject<TaskListChange> _taskChangeSubject;
     public IObservable<IEnumerable<TodoTaskViewModel>> FilteredTasks { get; private set; }
     public IObservable<int> DoneTaskCount { get; private set; }
@@ -67,6 +73,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private string _watermark;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(AddTaskCommand))]
     private string _newTaskText = string.Empty;
 
     [ObservableProperty]
@@ -76,15 +83,15 @@ public partial class MainWindowViewModel : ViewModelBase
     private bool _sortRecentFirst = true;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(UndoCommand))]
     private int _undoCount;
 
-    [RelayCommand]
+    private bool CanAddTask() => !string.IsNullOrWhiteSpace(NewTaskText);
+
+    [RelayCommand(CanExecute = nameof(CanAddTask))]
     private void AddTask()
     {
-        if (string.IsNullOrWhiteSpace(NewTaskText))
-        {
-            return;
-        }
+        if (string.IsNullOrWhiteSpace(NewTaskText)) return;
 
         MCommand command = new CommandAddTask(
             new TodoTaskViewModel(new TodoTask(3, NewTaskText, null, DateTime.Now)),
@@ -92,7 +99,7 @@ public partial class MainWindowViewModel : ViewModelBase
         UndoCount = _memento.DoCommand(command);
         NewTaskText = string.Empty;
     }
-
+    
     [RelayCommand]
     private void ClearTasks()
     {
@@ -110,7 +117,9 @@ public partial class MainWindowViewModel : ViewModelBase
         _taskChangeSubject.OnNext(_taskChangeSubject.Value.With(recentFirst));
     }
 
-    [RelayCommand]
+    private bool CanUndo() => UndoCount > 0;
+    
+    [RelayCommand(CanExecute = nameof(CanUndo))]
     private void Undo()
     {
         UndoCount = _memento.Undo();
@@ -119,6 +128,11 @@ public partial class MainWindowViewModel : ViewModelBase
     partial void OnSelectedTabChanged(int value)
     {
         _taskChangeSubject.OnNext(_taskChangeSubject.Value.With(value));
+    }
+
+    partial void OnNewTaskTextChanged(string value)
+    {
+        _taskInputTextSubject.OnNext(value);
     }
 
     private IEnumerable<TodoTaskViewModel> FilterTasks(TaskListChange change)
@@ -134,6 +148,12 @@ public partial class MainWindowViewModel : ViewModelBase
         tasks = change.RecentFirst
             ? tasks.OrderByDescending(model => model.CreationDate)
             : tasks.OrderBy(model => model.CreationDate);
+
+        if (!string.IsNullOrWhiteSpace(NewTaskText))
+        {
+            tasks = tasks.Where(model =>
+                model.Description.Contains(NewTaskText, StringComparison.CurrentCultureIgnoreCase));
+        }
 
         return tasks;
     }

@@ -7,12 +7,12 @@ namespace AvaloniaTodoAPp.Memento;
 
 public class CommandAddTask(TodoTaskViewModel task, BehaviorSubject<MainWindowViewModel.TaskListChange> subject) : MCommand
 {
-    public TodoTaskViewModel Task { get; private set; } = task;
-    public BehaviorSubject<MainWindowViewModel.TaskListChange> Subject { get; private set; } = subject;
+    private TodoTaskViewModel Task { get; } = task;
+    private BehaviorSubject<MainWindowViewModel.TaskListChange> Subject { get; } = subject;
     
     public void doCommand()
     {
-        Subject.OnNext(Subject.Value.With(Subject.Value.Tasks.Prepend(task)));
+        Subject.OnNext(Subject.Value.With(Subject.Value.Tasks.Prepend(Task)));
     }
 
     public void undoCommand()
