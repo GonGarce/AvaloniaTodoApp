@@ -25,6 +25,10 @@ public partial class TodoTaskView : UserControl
             _vm.ToggleCompleted();
         }
     }
+    private void ToggleImportant(object sender, TappedEventArgs args)
+    {
+        args.Handled = true;
+    }
 
     protected override void OnDataContextChanged(EventArgs e)
     {

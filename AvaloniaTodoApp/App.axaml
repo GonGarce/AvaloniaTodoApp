@@ -20,6 +20,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <MergeResourceInclude Source="Resources/Constants.axaml" />
                 <MergeResourceInclude Source="Resources/StaticTexts.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

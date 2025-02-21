@@ -3,6 +3,7 @@
         xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaTodoAPp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -23,43 +24,57 @@
             <TextBox.InnerRightContent>
                 <Button Classes="icon primary" HorizontalAlignment="Right" VerticalAlignment="Center"
                         IsDefault="True" Command="{Binding AddTaskCommand}">
-                    <PathIcon Data="{StaticResource AddRegular}" />
+                    <PathIcon Data="{StaticResource AddSquareRegular}" />
                 </Button>
             </TextBox.InnerRightContent>
         </TextBox>
         <DockPanel DockPanel.Dock="Top" Margin="20 0">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
                 <TabControl SelectedIndex="{Binding SelectedTab}">
-                    <TabItem Header="All" />
-                    <TabItem Header="Pending" />
-                    <TabItem Header="Important" />
+                    <TabItem Header="{DynamicResource TabAll}" />
+                    <TabItem Header="{DynamicResource TabTodo}" />
+                    <TabItem Header="{DynamicResource TabCritical}" />
                 </TabControl>
             </StackPanel>
-            <!--<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Classes="icon primary" HorizontalAlignment="Center">
-                    <PathIcon Data="{StaticResource EyeHideRegular}" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Classes="icon primary"
+                        IsEnabled="{Binding !!UndoCount}"
+                        Command="{Binding UndoCommand}">
+                    <PathIcon Data="{StaticResource ArrowUndoRegular}" />
+                </Button>
+                <Button Classes="icon primary"
+                        IsEnabled="{Binding !!DoneTaskCount^, FallbackValue=0}"
+                        Command="{Binding ClearTasksCommand}">
+                    <PathIcon Data="{StaticResource TaskList}" />
                 </Button>
                 <Button Classes="icon" HorizontalAlignment="Center">
                     <PathIcon Data="{StaticResource OptionsRegular}" />
                     <Button.Flyout>
                         <MenuFlyout>
-                            <MenuItem Header="Close" />
-                            <MenuItem Header="-" />
-                            <MenuItem Header="Option 2">
+                            <MenuItem Classes.active="{Binding SortRecentFirst}" Header="Recent first"
+                                      Command="{Binding SortTasksCommand}"
+                                      CommandParameter="{StaticResource True}">
                                 <MenuItem.Icon>
-                                    <PathIcon Data="{StaticResource OptionsRegular}" />
+                                    <PathIcon Data="{StaticResource ArrowUpRegular}" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Classes.active="{Binding !SortRecentFirst}" Header="Recent last"
+                                      Command="{Binding SortTasksCommand}"
+                                      CommandParameter="{StaticResource False}">
+                                <MenuItem.Icon>
+                                    <PathIcon Data="{StaticResource ArrowDownRegular}" />
                                 </MenuItem.Icon>
                             </MenuItem>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
-            </StackPanel>-->
+            </StackPanel>
         </DockPanel>
 
         <ScrollViewer>
             <ItemsControl Background="Transparent"
                           Margin="20 0"
-                          ItemsSource="{Binding Tasks}" />
+                          ItemsSource="{Binding FilteredTasks^, FallbackValue='Wait a second'}"/>
         </ScrollViewer>
     </DockPanel>
 </Window>

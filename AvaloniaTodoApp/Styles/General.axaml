@@ -30,4 +30,11 @@
     <Style Selector="TabItem:selected">
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
+    <!-- Active items -->
+    <Style Selector="MenuItem.active">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+    </Style>
+    <Style Selector="MenuItem.active PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+    </Style>
 </Styles>

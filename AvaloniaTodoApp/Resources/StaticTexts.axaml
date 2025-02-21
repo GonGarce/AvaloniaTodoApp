@@ -11,4 +11,7 @@
         <x:String>Learn PHP</x:String>
         <x:String>Improve the Todo App</x:String>
     </generic:List>
+    <x:String x:Key="TabAll">All</x:String>
+    <x:String x:Key="TabTodo">To-do</x:String>
+    <x:String x:Key="TabCritical">Critical</x:String>
 </ResourceDictionary>

@@ -3,9 +3,14 @@
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
-            <Button Classes="icon danger">
-                <PathIcon Data="{StaticResource Delete}" />
-            </Button>
+            <StackPanel Orientation="Horizontal">
+                <Button Classes="icon danger">
+                    <PathIcon Data="{StaticResource Delete}" />
+                </Button>
+                <Button Classes="icon danger" IsEnabled="False">
+                    <PathIcon Data="{StaticResource Delete}" />
+                </Button>
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
 
@@ -28,21 +33,27 @@
     <Style Selector="Button.icon:focused /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
-    <Style Selector="Button.icon > PathIcon">
+    <Style Selector="Button.icon:disabled /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon PathIcon">
         <Setter Property="Width" Value="24" />
         <Setter Property="Height" Value="24" />
     </Style>
     <!-- Button Icon Colors -->
-    <Style Selector="Button.icon.danger:pointerover > PathIcon">
+    <Style Selector="Button.icon:disabled PathIcon">
+        <Setter Property="Foreground" Value="LightSlateGray"/>
+    </Style>
+    <Style Selector="Button.icon.danger:pointerover PathIcon">
         <Setter Property="Foreground" Value="{DynamicResource DangerColor}"/>
     </Style>
     <Style Selector="Button.icon.danger:pressed > PathIcon">
         <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}"/>
     </Style>
-    <Style Selector="Button.icon.primary:pointerover > PathIcon">
+    <Style Selector="Button.icon.primary:pointerover PathIcon">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
     </Style>
-    <Style Selector="Button.icon.primary:pressed > PathIcon">
+    <Style Selector="Button.icon.primary:pressed PathIcon">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryColorDark}"/>
     </Style>
 </Styles>

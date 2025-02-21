@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Input;
+using AvaloniaTodoAPp.Memento;
 using AvaloniaTodoAPp.Messages;
 using AvaloniaTodoAPp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -31,7 +32,7 @@ public partial class TodoTaskViewModel : ViewModelBase
     [ObservableProperty]
     private DateTime? _creationDate;
     
-    private string _created;
+    private string? _created;
 
     public string Created
     {
@@ -52,7 +53,12 @@ public partial class TodoTaskViewModel : ViewModelBase
     [RelayCommand]
     public void ToggleCompleted()
     {
-        Completed = !Completed;
-        WeakReferenceMessenger.Default.Send(new CompleteTodoTaskMessage(this));
+        WeakReferenceMessenger.Default.Send(new ChangedTodoTaskMessage(new CommandToggleDone(this)));
+    }
+    
+    [RelayCommand]
+    private void ToggleImportant()
+    {
+        WeakReferenceMessenger.Default.Send(new ChangedTodoTaskMessage(new CommandToggleImportant(this)));
     }
 }
