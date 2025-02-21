@@ -1,7 +1,10 @@
-﻿namespace AvaloniaTodoAPp.Memento;
+﻿using System.Collections.Generic;
+using AvaloniaTodoAPp.ViewModels;
 
-public interface MCommand
+namespace AvaloniaTodoAPp.Memento;
+
+public interface IMCommand
 {
-    public void doCommand();
-    public void undoCommand();
+    public List<TodoTaskViewModel> DoCommand(List<TodoTaskViewModel> list);
+    public List<TodoTaskViewModel> UndoCommand(List<TodoTaskViewModel> list);
 }

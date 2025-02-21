@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using Avalonia;
 using AvaloniaTodoAPp.Messages;
 using AvaloniaTodoAPp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Reactive.Subjects;
 using AvaloniaTodoAPp.Memento;
 
 namespace AvaloniaTodoAPp.ViewModels;
@@ -22,17 +20,8 @@ public partial class MainWindowViewModel : ViewModelBase
         var randomTasks = Application.Current?.Resources["RandomTasks"] as List<string>;
         Watermark = randomTasks![Rnd.Next(randomTasks.Count)];
 
-        _taskChangeSubject = new BehaviorSubject<TaskListChange>(new TaskListChange(0, [], true));
-        FilteredTasks = _taskChangeSubject.Select(FilterTasks);
-        DoneTaskCount = _taskChangeSubject
-            .Select(change => change.Tasks)
-            .Select(tasks => tasks.Count(task => task.Completed));
-        _taskInputTextSubject
-            .DistinctUntilChanged()
-            //.Throttle(TimeSpan.FromMilliseconds(400))
-            .Subscribe(_ => _taskChangeSubject.OnNext(_taskChangeSubject.Value));
-
-        _taskChangeSubject.OnNext(_taskChangeSubject.Value.With([
+        Tasks =
+        [
             new TodoTaskViewModel(new TodoTask(1, "Buy cookies", null, DateTime.Now.Subtract(TimeSpan.FromDays(3)))),
             new TodoTaskViewModel(new TodoTask(2, "Accept cookies", null, DateTime.Now.Subtract(TimeSpan.FromDays(2)),
                 true)),
@@ -45,46 +34,50 @@ public partial class MainWindowViewModel : ViewModelBase
                 DateTime.Now.Subtract(TimeSpan.FromHours(3)))),
             new TodoTaskViewModel(new TodoTask(3, "Push the changes", null,
                 DateTime.Now.Subtract(TimeSpan.FromMinutes(53))))
-        ]));
+        ];
 
         WeakReferenceMessenger.Default.Register<RemoveTodoTaskMessage>(this,
-            (_, message) =>
-            {
-                MCommand command = new CommandRemoveTask(message.Value, _taskChangeSubject);
-                UndoCount = _memento.DoCommand(command);
-            });
+            (_, message) => { DoCommand(new CommandRemoveTask(message.Value)); });
         WeakReferenceMessenger.Default.Register<ChangedTodoTaskMessage>(this,
-            (_, message) =>
-            {
-                UndoCount = _memento.DoCommand(message.Value);
-                _taskChangeSubject.OnNext(_taskChangeSubject.Value); // Update needed for filtered lists
-            });
+            (_, message) => { DoCommand(message.Value); });
     }
 
     private readonly Memento.Memento _memento = new();
 
-    private readonly Subject<string> _taskInputTextSubject = new();
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowedTasks))]
+    private List<TodoTaskViewModel> _tasks;
 
-    private readonly BehaviorSubject<TaskListChange> _taskChangeSubject;
-    public IObservable<IEnumerable<TodoTaskViewModel>> FilteredTasks { get; private set; }
-    public IObservable<int> DoneTaskCount { get; private set; }
+    public IEnumerable<TodoTaskViewModel> ShowedTasks => FilterTasks();
 
     [ObservableProperty]
     private string _watermark;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowedTasks))]
     [NotifyCanExecuteChangedFor(nameof(AddTaskCommand))]
     private string _newTaskText = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowedTasks))]
     private int _selectedTab;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowedTasks))]
     private bool _sortRecentFirst = true;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(UndoCommand))]
     private int _undoCount;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ClearTasksCommand))]
+    private bool _hasTodoTasks;
+
+    partial void OnTasksChanged(List<TodoTaskViewModel> value)
+    {
+        HasTodoTasks = value.Any(model => model.Completed);
+    }
 
     private bool CanAddTask() => !string.IsNullOrWhiteSpace(NewTaskText);
 
@@ -92,60 +85,54 @@ public partial class MainWindowViewModel : ViewModelBase
     private void AddTask()
     {
         if (string.IsNullOrWhiteSpace(NewTaskText)) return;
-
-        MCommand command = new CommandAddTask(
-            new TodoTaskViewModel(new TodoTask(3, NewTaskText, null, DateTime.Now)),
-            _taskChangeSubject);
-        UndoCount = _memento.DoCommand(command);
+        DoCommand(new CommandAddTask(new TodoTaskViewModel(new TodoTask(3, NewTaskText, null, DateTime.Now))));
         NewTaskText = string.Empty;
     }
-    
-    [RelayCommand]
+
+    private bool CanClearTasks() => HasTodoTasks;
+
+    [RelayCommand(CanExecute = nameof(CanClearTasks))]
     private void ClearTasks()
     {
-        MCommand command = new CommandList(_taskChangeSubject.Value.Tasks
+        IMCommand command = new CommandList(Tasks
             .Where(vm => vm.Completed)
-            .Select(model => new CommandRemoveTask(model, _taskChangeSubject))
-            .Cast<MCommand>().ToList());
-        UndoCount = _memento.DoCommand(command);
+            .Select(model => new CommandRemoveTask(model))
+            .Cast<IMCommand>().ToList());
+        DoCommand(command);
     }
 
     [RelayCommand]
     private void SortTasks(bool recentFirst)
     {
         SortRecentFirst = recentFirst;
-        _taskChangeSubject.OnNext(_taskChangeSubject.Value.With(recentFirst));
     }
 
     private bool CanUndo() => UndoCount > 0;
-    
+
     [RelayCommand(CanExecute = nameof(CanUndo))]
     private void Undo()
     {
-        UndoCount = _memento.Undo();
+        Tasks = _memento.Undo(Tasks);
+        UndoCount = _memento.GetUndoCount();
     }
 
-    partial void OnSelectedTabChanged(int value)
+    private void DoCommand(IMCommand command)
     {
-        _taskChangeSubject.OnNext(_taskChangeSubject.Value.With(value));
+        Tasks = _memento.DoCommand(command, Tasks);
+        UndoCount = _memento.GetUndoCount();
     }
 
-    partial void OnNewTaskTextChanged(string value)
+    private IEnumerable<TodoTaskViewModel> FilterTasks()
     {
-        _taskInputTextSubject.OnNext(value);
-    }
-
-    private IEnumerable<TodoTaskViewModel> FilterTasks(TaskListChange change)
-    {
-        var tasks = change.Tasks;
-        tasks = change.SelectedTab switch
+        IEnumerable<TodoTaskViewModel> tasks = Tasks;
+        tasks = SelectedTab switch
         {
             1 => tasks.Where(vm => !vm.Completed),
             2 => tasks.Where(vm => vm.Important),
             _ => tasks
         };
 
-        tasks = change.RecentFirst
+        tasks = SortRecentFirst
             ? tasks.OrderByDescending(model => model.CreationDate)
             : tasks.OrderBy(model => model.CreationDate);
 
@@ -156,28 +143,5 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         return tasks;
-    }
-
-    public class TaskListChange(int selectedTab, IEnumerable<TodoTaskViewModel> tasks, bool recentFirst)
-    {
-        public int SelectedTab { get; } = selectedTab;
-        public IEnumerable<TodoTaskViewModel> Tasks { get; } = tasks;
-
-        public bool RecentFirst { get; } = recentFirst;
-
-        public TaskListChange With(int newTab)
-        {
-            return new TaskListChange(newTab, Tasks, RecentFirst);
-        }
-
-        public TaskListChange With(IEnumerable<TodoTaskViewModel> tasks)
-        {
-            return new TaskListChange(SelectedTab, tasks, RecentFirst);
-        }
-
-        public TaskListChange With(bool recentFirst)
-        {
-            return new TaskListChange(SelectedTab, Tasks, recentFirst);
-        }
     }
 }

@@ -4,4 +4,4 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace AvaloniaTodoAPp.Messages;
 
-public class ChangedTodoTaskMessage(MCommand command) : ValueChangedMessage<MCommand>(command);
+public class ChangedTodoTaskMessage(IMCommand command) : ValueChangedMessage<IMCommand>(command);

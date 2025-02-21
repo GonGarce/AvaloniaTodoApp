@@ -5,17 +5,22 @@ using AvaloniaTodoAPp.ViewModels;
 
 namespace AvaloniaTodoAPp.Memento;
 
-public class CommandToggleImportant(TodoTaskViewModel task) : MCommand
+public class CommandToggleImportant(TodoTaskViewModel task) : IMCommand
 {
-    public TodoTaskViewModel Task { get; private set; } = task;
-    
-    public void doCommand()
+    private TodoTaskViewModel Task { get; } = task;
+    public List<TodoTaskViewModel> DoCommand(List<TodoTaskViewModel> list)
     {
-        Task.Important = !Task.Important;
+        return list
+            .Select(model =>
+            {
+                if (Task == model) model.Important = !model.Important;
+                return model;
+            })
+            .ToList();
     }
 
-    public void undoCommand()
+    public List<TodoTaskViewModel> UndoCommand(List<TodoTaskViewModel> list)
     {
-        Task.Important = !Task.Important;
+        return DoCommand(list);
     }
 }

@@ -3,7 +3,6 @@
         xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaTodoAPp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -50,9 +49,7 @@
                         HotKey="Ctrl+Z">
                     <PathIcon Data="{StaticResource ArrowUndoRegular}" />
                 </Button>
-                <Button Classes="icon primary"
-                        IsEnabled="{Binding !!DoneTaskCount^, FallbackValue=0}"
-                        Command="{Binding ClearTasksCommand}">
+                <Button Classes="icon primary" Command="{Binding ClearTasksCommand}">
                     <PathIcon Data="{StaticResource TaskList}" />
                 </Button>
                 <Button Classes="icon" HorizontalAlignment="Center">
@@ -82,7 +79,7 @@
         <ScrollViewer>
             <ItemsControl Background="Transparent"
                           Margin="20 0"
-                          ItemsSource="{Binding FilteredTasks^, FallbackValue='Wait a second'}"/>
+                          ItemsSource="{Binding ShowedTasks, FallbackValue='Loading your tasks...'}"/>
         </ScrollViewer>
     </DockPanel>
 </Window>

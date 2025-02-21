@@ -30,17 +30,13 @@ public partial class TodoTaskViewModel : ViewModelBase
     private bool _important;
 
     [ObservableProperty]
-    private DateTime? _creationDate;
+    private DateTime _creationDate;
     
     private string? _created;
 
     public string Created
     {
-        get
-        {
-            DateTime date = CreationDate ?? DateTime.Now;
-            return CreationDate != null ? RelativeDate.Get(date).ToString(format: null, new CultureInfo("es-ES")) : "";
-        }
+        get => RelativeDate.Get(CreationDate).ToString(format: null, new CultureInfo("es-ES"));
         set => SetProperty(ref _created, value);
     }
 

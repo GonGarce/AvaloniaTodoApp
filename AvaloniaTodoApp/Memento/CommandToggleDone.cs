@@ -5,17 +5,22 @@ using AvaloniaTodoAPp.ViewModels;
 
 namespace AvaloniaTodoAPp.Memento;
 
-public class CommandToggleDone(TodoTaskViewModel task) : MCommand
+public class CommandToggleDone(TodoTaskViewModel task) : IMCommand
 {
-    public TodoTaskViewModel Task { get; private set; } = task;
-    
-    public void doCommand()
+    private TodoTaskViewModel Task { get; } = task;
+    public List<TodoTaskViewModel> DoCommand(List<TodoTaskViewModel> list)
     {
-        Task.Completed = !Task.Completed;
+        return list
+            .Select(model =>
+            {
+                if (Task == model) model.Completed = !model.Completed;
+                return model;
+            })
+            .ToList();
     }
 
-    public void undoCommand()
+    public List<TodoTaskViewModel> UndoCommand(List<TodoTaskViewModel> list)
     {
-        Task.Completed = !Task.Completed;
+        return DoCommand(list);
     }
 }

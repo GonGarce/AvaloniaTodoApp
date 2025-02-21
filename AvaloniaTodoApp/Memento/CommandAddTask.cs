@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Subjects;
 using AvaloniaTodoAPp.ViewModels;
 
 namespace AvaloniaTodoAPp.Memento;
 
-public class CommandAddTask(TodoTaskViewModel task, BehaviorSubject<MainWindowViewModel.TaskListChange> subject) : MCommand
+public class CommandAddTask(TodoTaskViewModel task) : IMCommand
 {
     private TodoTaskViewModel Task { get; } = task;
-    private BehaviorSubject<MainWindowViewModel.TaskListChange> Subject { get; } = subject;
-    
-    public void doCommand()
+
+    public List<TodoTaskViewModel> DoCommand(List<TodoTaskViewModel> list)
     {
-        Subject.OnNext(Subject.Value.With(Subject.Value.Tasks.Prepend(Task)));
+        return list.Prepend(Task).ToList();
     }
 
-    public void undoCommand()
+    public List<TodoTaskViewModel> UndoCommand(List<TodoTaskViewModel> list)
     {
-        Subject.OnNext(Subject.Value.With(Subject.Value.Tasks.Skip(1)));
+        return list.Skip(1).ToList();
     }
 }
