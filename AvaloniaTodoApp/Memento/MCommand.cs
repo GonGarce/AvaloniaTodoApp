@@ -5,6 +5,6 @@ namespace AvaloniaTodoAPp.Memento;
 
 public interface IMCommand
 {
-    public List<TodoTaskViewModel> DoCommand(List<TodoTaskViewModel> list);
-    public List<TodoTaskViewModel> UndoCommand(List<TodoTaskViewModel> list);
+    public void DoCommand();
+    public void UndoCommand();
 }

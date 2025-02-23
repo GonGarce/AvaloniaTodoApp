@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media.Imaging;
+using Avalonia.Threading;
+using AvaloniaTodoApp.App;
+using AvaloniaTodoAPp.Controls;
 using AvaloniaTodoAPp.Messages;
 using AvaloniaTodoAPp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using AvaloniaTodoAPp.Memento;
+using AvaloniaTodoApp.ViewModels.Controls;
+using AvaloniaTodoAPp.ViewModels.Controls;
+using Supabase.Realtime;
+using Supabase.Realtime.PostgresChanges;
 
 namespace AvaloniaTodoAPp.ViewModels;
 
@@ -15,38 +27,103 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     private static readonly Random Rnd = new();
 
+    private RealtimeChannel? _channel; // TODO: Unsubscribe
+
+    public async void LoadAvatar()
+    {
+        var url = AppState.Instance.Profile.Image;
+        if (string.IsNullOrEmpty(url)) return;
+        HttpClient s_httpClient = new();
+        var data = await s_httpClient.GetByteArrayAsync(url);
+        var m = new MemoryStream(data);
+        var avatar = await Task.Run(() => Bitmap.DecodeToWidth(m, 36));
+        Dispatcher.UIThread.Post(() => Avatar = avatar);
+        //await using (var imageStream = await _album.LoadCoverBitmapAsync())
+    }
+
+    [ObservableProperty]
+    private Bitmap? _avatar;
+
+    private async void SubscribeChannel()
+    {
+        _channel = await AppState.Instance.Supabase.From<STask>().On(PostgresChangesOptions.ListenType.All,
+            (_, change) =>
+            {
+                if (change.Payload?.Data?.Type is Constants.EventType.Insert or Constants.EventType.Update)
+                {
+                    var t = change.Model<STask>()!;
+
+                    if (!MainWindowState.Instance().CurrentCollection.IsDefault &&
+                        t.CollectionId != MainWindowState.Instance().CurrentCollection.Id)
+                    {
+                        // Change is not from the current collection
+                        return;
+                    }
+
+                    if (SelectedCollection.IsTodo && t.IsCompleted() || SelectedCollection.IsCritical && !t.Critical)
+                    {
+                        // If completed or critical has changed maybe we have to hide from the list.
+                        MainWindowState.Instance().Subject.OnNext(new RemoveTask(t.Id));
+                    }
+                    else
+                    {
+                        // If task must be shown, then send add message
+                        MainWindowState.Instance().Subject.OnNext(new UpdateOrAddTask(new TodoTaskViewModel(t)));
+                    }
+                }
+
+                if (change.Payload?.Data?.Type == Constants.EventType.Delete)
+                {
+                    var t = change.OldModel<STask>()!;
+                    MainWindowState.Instance().Subject.OnNext(new RemoveTask(t.Id));
+                }
+            });
+    }
+
     public MainWindowViewModel()
     {
         var randomTasks = Application.Current?.Resources["RandomTasks"] as List<string>;
         Watermark = randomTasks![Rnd.Next(randomTasks.Count)];
 
-        Tasks =
-        [
-            new TodoTaskViewModel(new TodoTask(1, "Buy cookies", null, DateTime.Now.Subtract(TimeSpan.FromDays(3)))),
-            new TodoTaskViewModel(new TodoTask(2, "Accept cookies", null, DateTime.Now.Subtract(TimeSpan.FromDays(2)),
-                true)),
-            new TodoTaskViewModel(new TodoTask(3, "Delete cookies", null, DateTime.Now.Subtract(TimeSpan.FromDays(1)))),
-            new TodoTaskViewModel(new TodoTask(3, "Finish the code", null,
-                DateTime.Now.Subtract(TimeSpan.FromHours(18)))),
-            new TodoTaskViewModel(new TodoTask(3, "Add event handling", null,
-                DateTime.Now.Subtract(TimeSpan.FromHours(9)), true)),
-            new TodoTaskViewModel(new TodoTask(3, "Commit the changes", null,
-                DateTime.Now.Subtract(TimeSpan.FromHours(3)))),
-            new TodoTaskViewModel(new TodoTask(3, "Push the changes", null,
-                DateTime.Now.Subtract(TimeSpan.FromMinutes(53))))
-        ];
+        if (Design.IsDesignMode) return;
+
+        SubscribeChannel();
 
         WeakReferenceMessenger.Default.Register<RemoveTodoTaskMessage>(this,
             (_, message) => { DoCommand(new CommandRemoveTask(message.Value)); });
         WeakReferenceMessenger.Default.Register<ChangedTodoTaskMessage>(this,
             (_, message) => { DoCommand(message.Value); });
+
+        Tasks = MainWindowState.Instance().Tasks.ToList();
+        WeakReferenceMessenger.Default.Register<TaskListUpdate>(this, (_, message) => { Tasks = message.Value; });
+
+        SelectedCollection = MainWindowState.Instance().CurrentCollection;
+        WeakReferenceMessenger.Default.Register<ChangeCurrentCollection>(this,
+            (_, message) => Dispatcher.UIThread.Post(() =>
+            {
+                SelectedCollection = message.Value;
+                UndoCount = 0;
+                _memento.clear();
+            }));
     }
 
     private readonly Memento.Memento _memento = new();
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowTabs))]
+    [NotifyPropertyChangedFor(nameof(Avatars))]
+    private CollectionItemViewModel _selectedCollection = null!;
+
+    public CollectionsTabViewModel CollectionsTabViewModel { get; set; } = new();
+
+    public bool ShowTabs => !SelectedCollection.IsDefault;
+
+    public IEnumerable<AvatarList.AvatarData> Avatars =>
+        SelectedCollection.Profiles.Select(profile => new AvatarList.AvatarData { Username = profile.Username });
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowedTasks))]
-    private List<TodoTaskViewModel> _tasks;
+    private List<TodoTaskViewModel> _tasks = [];
 
     public IEnumerable<TodoTaskViewModel> ShowedTasks => FilterTasks();
 
@@ -79,13 +156,16 @@ public partial class MainWindowViewModel : ViewModelBase
         HasTodoTasks = value.Any(model => model.Completed);
     }
 
-    private bool CanAddTask() => !string.IsNullOrWhiteSpace(NewTaskText);
+    private bool CanAddTask()
+    {
+        return !string.IsNullOrWhiteSpace(NewTaskText) && SelectedCollection is { IsDefault: false };
+    }
 
     [RelayCommand(CanExecute = nameof(CanAddTask))]
     private void AddTask()
     {
         if (string.IsNullOrWhiteSpace(NewTaskText)) return;
-        DoCommand(new CommandAddTask(new TodoTaskViewModel(new TodoTask(3, NewTaskText, null, DateTime.Now))));
+        DoCommand(new CommandAddTask(new TodoTaskViewModel(NewTaskText, SelectedCollection.Id)));
         NewTaskText = string.Empty;
     }
 
@@ -94,11 +174,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanClearTasks))]
     private void ClearTasks()
     {
-        IMCommand command = new CommandList(Tasks
-            .Where(vm => vm.Completed)
-            .Select(model => new CommandRemoveTask(model))
-            .Cast<IMCommand>().ToList());
-        DoCommand(command);
+        DoCommand(new CommandClear());
     }
 
     [RelayCommand]
@@ -112,13 +188,15 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanUndo))]
     private void Undo()
     {
-        Tasks = _memento.Undo(Tasks);
+        //Tasks = _memento.Undo(Tasks);
+        _memento.Undo();
         UndoCount = _memento.GetUndoCount();
     }
 
     private void DoCommand(IMCommand command)
     {
-        Tasks = _memento.DoCommand(command, Tasks);
+        //Tasks = _memento.DoCommand(command, Tasks);
+        _memento.DoCommand(command);
         UndoCount = _memento.GetUndoCount();
     }
 

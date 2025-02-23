@@ -2,26 +2,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="AvaloniaTodoAPp.App"
              xmlns:local="using:AvaloniaTodoAPp"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:dialogs="clr-namespace:AvaloniaTodoAPp.Dialogs"
+             xmlns:converters="clr-namespace:AvaloniaTodoApp.Converters"
              RequestedThemeVariant="Default">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator />
+        <DataTemplate DataType="dialogs:DeleteDialogModel">
+            <StackPanel Classes="dialog" MaxWidth="400">
+                <Border Classes="dialog_title">
+                    <TextBlock Classes="important" Text="{Binding Name, StringFormat={StaticResource TitleDeleteList}}" />
+                </Border>
+                <StackPanel Classes="dialog_content">
+                    <TextBlock ClipToBounds="False" Text="{StaticResource TextDeleteList}" />
+                    <TextBlock Classes="important" Text="{StaticResource TextActionNoUndo}" Margin="0 20 0 0" />
+                </StackPanel>
+                <Border Classes="dialog_footer">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="32">
+                        <Button Classes="stroke" Content="{StaticResource ActionCancel}"
+                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}" />
+                        <Button Classes="stroke danger" Content="{StaticResource ActionDelete}"
+                                Command="{Binding Delete}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
     </Application.DataTemplates>
 
     <Application.Styles>
         <FluentTheme DensityStyle="Normal" />
+        <dialogHostAvalonia:DialogHostStyles />
         <StyleInclude Source="Styles/Icons.axaml" />
         <StyleInclude Source="Styles/Colors.axaml" />
         <StyleInclude Source="Styles/Buttons.axaml" />
         <StyleInclude Source="Styles/General.axaml" />
+        <StyleInclude Source="Styles/Dialogs.axaml" />
+        <StyleInclude Source="Styles/TabControl.axaml" />
     </Application.Styles>
 
     <Application.Resources>
         <ResourceDictionary>
+            <converters:CollectionCountConverter x:Key="CollectionCount"/>
+            <converters:IsEmptyConverter x:Key="IsEmpty"/>
+            <converters:GreaterCountConverter x:Key="GreaterCount"/>
+            <converters:SmallerCountConverter x:Key="SmallerCount"/>
             <ResourceDictionary.MergedDictionaries>
                 <MergeResourceInclude Source="Resources/Constants.axaml" />
                 <MergeResourceInclude Source="Resources/StaticTexts.axaml" />
+                <MergeResourceInclude Source="Resources/Theme.axaml" />
+                <MergeResourceInclude Source="Controls/Avatar.axaml" />
+                <MergeResourceInclude Source="Controls/AvatarList.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

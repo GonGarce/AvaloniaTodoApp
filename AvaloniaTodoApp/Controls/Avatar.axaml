@@ -1,0 +1,98 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:AvaloniaTodoAPp.Controls"
+                    xmlns:converters="clr-namespace:AvaloniaTodoAPp.Converters">
+
+    <!-- Design time preview -->
+    <Design.PreviewWith>
+        <Border Margin="20">
+            <StackPanel Spacing="10" Orientation="Vertical">
+                <!-- Force using default Theme Variant -->
+                <ThemeVariantScope RequestedThemeVariant="Default">
+                    <StackPanel Spacing="10" Background="{DynamicResource SystemRegionBrush}">
+                        <controls:Avatar Username="Gonzalo" Size="32" BorderBrush="DarkGray" BorderThickness="2" />
+                        <controls:Avatar Color="White" BorderBrush="DarkGray" BorderThickness="2"
+                                         Foreground="Black" Text="+12" FontSize="12" FontWeight="Bold" />
+                        <controls:Avatar Image="avares://AvaloniaTodoApp/Assets/horizontal1.jpg" />
+                        <controls:Avatar Image="avares://AvaloniaTodoApp/Assets/horizontal1.jpg"
+                                         BorderBrush="DarkGray" BorderThickness="2"/>
+                        <StackPanel Orientation="Horizontal" Spacing="-10">
+                            <controls:Avatar Username="Gonzalo" />
+                            <controls:Avatar Username="Alex" />
+                            <controls:Avatar />
+                        </StackPanel>
+                    </StackPanel>
+                </ThemeVariantScope>
+                <!-- Force using Light Theme Variant -->
+                <ThemeVariantScope RequestedThemeVariant="Light">
+                    <StackPanel Spacing="10" Background="{DynamicResource SystemRegionBrush}">
+                    </StackPanel>
+                </ThemeVariantScope>
+                <!-- Force using Dark Theme Variant -->
+                <ThemeVariantScope RequestedThemeVariant="Dark">
+                </ThemeVariantScope>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Define the Theme Variants: ResourceDictionary.ThemeDictionaries -->
+
+    <!-- Avatar Colors -->
+    <Color x:Key='AvatarTextColor'>#fff</Color>
+    <Color x:Key='AvatarColor0'>#f44336</Color>
+    <Color x:Key='AvatarColor1'>#e91e63</Color>
+    <Color x:Key='AvatarColor2'>#9c27b0</Color>
+    <Color x:Key='AvatarColor3'>#673ab7</Color>
+    <Color x:Key='AvatarColor4'>#3f51b5</Color>
+    <Color x:Key='AvatarColor5'>#2196f3</Color>
+    <Color x:Key='AvatarColor6'>#009688</Color>
+    <Color x:Key='AvatarColor7'>#00bcd4</Color>
+    <Color x:Key='AvatarColor8'>#4caf50</Color>
+    <Color x:Key='AvatarColor9'>#cddc39</Color>
+    <Color x:Key='AvatarColor10'>#ffc107</Color>
+    <Color x:Key='AvatarColor11'>#ff9800</Color>
+    <Color x:Key='AvatarColor12'>#ff5722</Color>
+    <Color x:Key='AvatarColor13'>#795548</Color>
+    <Color x:Key='AvatarColor14'>#607d8b</Color>
+    
+    <ControlTheme x:Key="{x:Type controls:Avatar}" TargetType="controls:Avatar">
+        <ControlTheme.Resources>
+            <converters:SizeToFontSizeConverter x:Key="FontSizeConverter" />
+            <StreamGeometry x:Key="AvatarIcon">M35.7502,28 C38.0276853,28 39.8876578,29.7909151 39.9950978,32.0427546 L40,32.2487 L40,33 C40,36.7555 38.0583,39.5669 35.0798,41.3802 C32.1509,43.1633 28.2139,44 24,44 C19.7861,44 15.8491,43.1633 12.9202,41.3802 C10.0319285,39.6218485 8.11862909,36.9249713 8.00532378,33.3388068 L8,33 L8,32.2489 C8,29.9703471 9.79294995,28.1122272 12.0440313,28.0048972 L12.2499,28 L35.7502,28 Z M35.7502,30.5 L12.2499,30.5 C11.331345,30.5 10.5787597,31.2066575 10.5057976,32.1054618 L10.5,32.2489 L10.5,33 C10.5,35.7444 11.8602,37.8081 14.2202,39.2448 C16.6297,40.7117 20.0677,41.5 24,41.5 C27.9323,41.5 31.3703,40.7117 33.7798,39.2448 C36.0555143,37.8594107 37.4015676,35.8910074 37.4948116,33.2914406 L37.5,33 L37.5,32.2488 C37.5,31.331195 36.7934328,30.5787475 35.8937801,30.5057968 L35.7502,30.5 Z M24,4 C29.5228,4 34,8.47715 34,14 C34,19.5228 29.5228,24 24,24 C18.4772,24 14,19.5228 14,14 C14,8.47715 18.4772,4 24,4 Z M24,6.5 C19.8579,6.5 16.5,9.85786 16.5,14 C16.5,18.1421 19.8579,21.5 24,21.5 C28.1421,21.5 31.5,18.1421 31.5,14 C31.5,9.85786 28.1421,6.5 24,6.5 Z</StreamGeometry>
+        </ControlTheme.Resources>
+        <Setter Property="Foreground" Value="{DynamicResource AvatarTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel
+                    ClipToBounds="True"
+                    Width="{TemplateBinding Size}" Height="{TemplateBinding Size}">
+                    <Ellipse
+                        Margin="1"
+                        Fill="{Binding AvatarColor, RelativeSource={RelativeSource AncestorType=controls:Avatar}}" />
+                    <TextBlock
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Foreground="{TemplateBinding Foreground}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        FontStyle="{TemplateBinding FontStyle}"
+                        FontSize="{TemplateBinding Size, Converter={StaticResource FontSizeConverter}}"
+                        Text="{TemplateBinding Text}" />
+                    <PathIcon
+                        Data="{StaticResource AvatarIcon}"
+                        IsVisible="{TemplateBinding  Text, Converter={x:Static StringConverters.IsNullOrEmpty }}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Width="{TemplateBinding Size, Converter={StaticResource FontSizeConverter}}" />
+                    <Border ClipToBounds="True"
+                            Margin="1"
+                            CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=controls:Avatar}}">
+                        <Image Source="{TemplateBinding Image}" Stretch="Fill" />
+                    </Border>
+                    <Border ClipToBounds="True"
+                            CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=controls:Avatar}}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

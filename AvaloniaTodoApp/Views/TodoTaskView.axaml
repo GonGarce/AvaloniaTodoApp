@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
              x:Class="AvaloniaTodoAPp.Views.TodoTaskView"
              x:DataType="vm:TodoTaskViewModel">
     <UserControl.Styles>
@@ -12,59 +12,127 @@
             <Setter Property="TextDecorations" Value="Strikethrough" />
         </Style>
         <Style Selector="Border.row:pointerover">
-            <Setter Property="Background" Value="#F3F3F3" />
+            <Setter Property="Background" Value="{DynamicResource BackgroundTabs}" />
         </Style>
         <Style Selector="Border.row:focus">
-            <Setter Property="Background" Value="#F3F3F3" />
+            <Setter Property="Background" Value="{DynamicResource BackgroundTabs}" />
         </Style>
     </UserControl.Styles>
 
-    <Border Classes="row" Padding="10" Cursor="Hand" Tapped="ToggleCompleted" CornerRadius="8">
-        <Grid HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0"
-                      VerticalAlignment="Center"
-                      CornerRadius="20"
-                      Padding="0"
-                      Margin="0 0 10 0"
-                      IsChecked="{Binding Completed}"
-                      Command="{Binding ToggleCompletedCommand}"/>
-            <StackPanel Grid.Column="1"
-                        Background="Transparent"
-                        Orientation="Vertical"
-                        VerticalAlignment="Center">
-                <TextBlock FontSize="16" FontWeight="Bold"
-                           Classes.completed="{Binding Completed}"
-                           Text="{Binding Description}" />
-                <TextBlock FontSize="12"
-                           Opacity="0.8"
-                           Text="{Binding Created}" />
-            </StackPanel>
-            <Button Grid.Column="2"
-                    DockPanel.Dock="Right"
-                    Classes="icon primary"
-                    VerticalAlignment="Center"
-                    Margin="10 0 0 0"
-                    Command="{Binding ToggleImportantCommand}"
-                    Tapped="ToggleImportant">
-                <Panel>
-                    <PathIcon Data="{StaticResource AlertRegular}" IsVisible="{Binding !Important}" />
-                    <PathIcon Data="{StaticResource AlertOffRegular}" IsVisible="{Binding Important}" />
-                </Panel>
-            </Button>
-            <Button Grid.Column="3"
-                    DockPanel.Dock="Right"
-                    Classes="icon danger"
-                    VerticalAlignment="Center"
-                    Margin="10 0 0 0"
-                    Command="{Binding DeleteCommand}">
-                <PathIcon Data="{StaticResource Delete}" />
-            </Button>
-        </Grid>
-    </Border>
+
+    <Panel>
+        <Border IsVisible="{Binding !IsLoading}" Classes="row" Padding="10" Cursor="Hand" Tapped="ToggleCompleted"
+                CornerRadius="8">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          VerticalAlignment="Center"
+                          CornerRadius="20"
+                          Padding="0"
+                          Margin="0 0 10 0"
+                          IsChecked="{Binding Completed}"
+                          Command="{Binding ToggleCompletedCommand}" />
+                <StackPanel Grid.Column="1"
+                            Background="Transparent"
+                            Orientation="Vertical"
+                            VerticalAlignment="Center">
+                    <TextBlock FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis"
+                               Classes.completed="{Binding Completed}"
+                               Text="{Binding Description}" />
+                    <TextBlock FontSize="12"
+                               Opacity="0.8"
+                               Text="{Binding Created}" />
+                </StackPanel>
+                <Button Grid.Column="2"
+                        DockPanel.Dock="Right"
+                        IsVisible="{Binding !Important}"
+                        Classes="icon primary"
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Command="{Binding ToggleImportantCommand}"
+                        Tapped="PreventDefault">
+                    <Panel>
+                        <PathIcon Data="{StaticResource AlertRegular}" />
+                    </Panel>
+                </Button>
+                <Button Grid.Column="2"
+                        DockPanel.Dock="Right"
+                        IsVisible="{Binding Important}"
+                        Classes="icon danger"
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Command="{Binding ToggleImportantCommand}"
+                        Tapped="PreventDefault">
+                    <Panel>
+                        <PathIcon Data="{StaticResource AlertOffRegular}"
+                                  Foreground="{DynamicResource DangerColorDark}" />
+                    </Panel>
+                </Button>
+                <Button Grid.Column="3"
+                        DockPanel.Dock="Right"
+                        Classes="icon danger"
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Command="{Binding DeleteCommand}"
+                        Tapped="PreventDefault">
+                    <PathIcon Data="{StaticResource Delete}" />
+                </Button>
+            </Grid>
+        </Border>
+        <Border IsVisible="{Binding IsLoading}" Cursor="" Padding="10" CornerRadius="8">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          VerticalAlignment="Center"
+                          CornerRadius="20"
+                          Padding="0"
+                          Margin="0 0 10 0"
+                          IsChecked="{Binding Completed}"
+                          IsEnabled="False" />
+                <StackPanel Grid.Column="1"
+                            Background="Transparent"
+                            Orientation="Vertical"
+                            VerticalAlignment="Center">
+                    <TextBlock FontSize="16" FontWeight="Bold"
+                               Classes.completed="{Binding Completed}"
+                               Text="{Binding Description}"
+                               IsEnabled="False"
+                               Opacity="0.6" />
+                    <TextBlock FontSize="12"
+                               Opacity="0.4"
+                               Text="{Binding Created}"
+                               IsEnabled="False" />
+                </StackPanel>
+                <Button Grid.Column="2"
+                        DockPanel.Dock="Right"
+                        Classes="icon primary"
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        IsEnabled="False">
+                    <Panel>
+                        <PathIcon Data="{StaticResource AlertRegular}" IsVisible="{Binding !Important}" />
+                        <PathIcon Data="{StaticResource AlertOffRegular}" IsVisible="{Binding Important}" />
+                    </Panel>
+                </Button>
+                <Button Grid.Column="3"
+                        DockPanel.Dock="Right"
+                        Classes="icon danger"
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        IsEnabled="False">
+                    <PathIcon Data="{StaticResource Delete}" />
+                </Button>
+            </Grid>
+        </Border>
+    </Panel>
 </UserControl>

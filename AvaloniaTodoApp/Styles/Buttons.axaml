@@ -10,6 +10,11 @@
                 <Button Classes="icon danger" IsEnabled="False">
                     <PathIcon Data="{StaticResource Delete}" />
                 </Button>
+                <Button Classes="stroke danger" Margin="0" Padding="10" MinWidth="120"
+                        HorizontalContentAlignment="Center"
+                        FontWeight="Medium">
+                    Delete
+                </Button>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -42,18 +47,82 @@
     </Style>
     <!-- Button Icon Colors -->
     <Style Selector="Button.icon:disabled PathIcon">
-        <Setter Property="Foreground" Value="LightSlateGray"/>
+        <Setter Property="Foreground" Value="LightSlateGray" />
     </Style>
     <Style Selector="Button.icon.danger:pointerover PathIcon">
-        <Setter Property="Foreground" Value="{DynamicResource DangerColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource DangerColor}" />
     </Style>
     <Style Selector="Button.icon.danger:pressed > PathIcon">
-        <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}"/>
+        <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}" />
     </Style>
     <Style Selector="Button.icon.primary:pointerover PathIcon">
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
     </Style>
     <Style Selector="Button.icon.primary:pressed PathIcon">
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryColorDark}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColorDark}" />
+    </Style>
+
+    <!-- Button Stroke Style -->
+    <Style Selector="Button.stroke">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="#d1d1d1" />
+    </Style>
+    <Style Selector="Button.stroke /template/ ContentPresenter">
+        <Setter Property="FontWeight" Value="DemiBold" />
+    </Style>
+    <Style Selector="Button.stroke:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="#c7c7c7" />
+    </Style>
+    <Style Selector="Button.stroke:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="#c5c5c5" />
+    </Style>
+    <Style Selector="Button.stroke:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <Style Selector="Button.stroke:focused /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="Black" />
+    </Style>
+    <Style Selector="Button.stroke:disabled /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="Button.icon.stroke">
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+    </Style>
+    <Style Selector="Button.icon.stroke PathIcon">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+    </Style>
+    <!-- Button Stroke Colors -->
+    <Style Selector="Button.icon.stroke:disabled PathIcon">
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
+    <Style Selector="Button.stroke.danger">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerColor}" />
+    </Style>
+    <Style Selector="Button.stroke.danger:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColorLight}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerColorLight}" />
+    </Style>
+    <Style Selector="Button.stroke.danger:pressed /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerColorDark}" />
+    </Style>
+    <Style Selector="Button.stroke.danger:selected /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerColorDark}" />
+    </Style>
+    <Style Selector="Button.stroke.danger:focused /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerColorDark}" />
     </Style>
 </Styles>

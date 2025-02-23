@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+                    xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections">
     <generic:List x:TypeArguments="x:String" x:Key="RandomTasks">
         <x:String>Buy some fruit</x:String>
         <x:String>Build something incredible</x:String>
@@ -11,7 +10,21 @@
         <x:String>Learn PHP</x:String>
         <x:String>Improve the Todo App</x:String>
     </generic:List>
+    
     <x:String x:Key="TabAll">All</x:String>
     <x:String x:Key="TabTodo">To-do</x:String>
     <x:String x:Key="TabCritical">Critical</x:String>
+    
+    <x:String x:Key="ActionCancel">Cancel</x:String>
+    <x:String x:Key="ActionDelete">Delete</x:String>    
+    
+    <x:String x:Key="MenuShowDefault">Show default lists</x:String>
+    <x:String x:Key="MenuSwitchTheme">Switch Dark mode</x:String>
+    
+    <x:String x:Key="TitleDeleteList">Confirm "{0}" list deletion</x:String>
+    
+    <x:String x:Key="TextActionNoUndo">This action cannot be undone.</x:String>
+    <x:String x:Key="TextDeleteList">Are you sure you want to delete this list? The list an all its Tasks will be deleted.</x:String>
+    
+    <x:String x:Key="TipRemoveCompleted">Remove completed tasks</x:String>
 </ResourceDictionary>

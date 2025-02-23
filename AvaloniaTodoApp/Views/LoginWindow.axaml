@@ -1,0 +1,17 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaTodoApp.Views.LoginWindow"
+        x:DataType="vm:LoginWindowViewModel">
+    <StackPanel VerticalAlignment="Center" Margin="80" Spacing="20">
+        <TextBox Watermark="Visible username" Text="{Binding Username}" />
+        <TextBox Watermark="your.email@domain.com" Text="{Binding Email}" />
+        <TextBox Watermark="**********" Text="{Binding Password}" />
+        <Button Content="Login" Command="{Binding LoginCommand}"
+                HorizontalAlignment="Right" MinWidth="100"
+                HorizontalContentAlignment="Center" />
+    </StackPanel>
+</Window>

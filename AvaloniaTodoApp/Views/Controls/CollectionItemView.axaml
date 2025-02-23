@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:AvaloniaTodoApp.ViewModels.Controls"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:Class="AvaloniaTodoApp.Views.Controls.CollectionItemView"
+             x:DataType="controls:CollectionItemViewModel">
+    <Design.DataContext>
+        <controls:CollectionItemViewModel Title="Lista 1" />
+    </Design.DataContext>
+    
+    <UserControl.Styles>
+        <Style Selector="TabItem Panel.action_button">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="TabItem:pointerover Panel.action_button">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+    </UserControl.Styles>
+
+    <Panel>
+        <Button Name="StartEdit" IsVisible="False" Command="{Binding SetEditStatusCommand}"
+                CommandParameter="{StaticResource True}" />
+        <!-- Transparent background makes the entire row clickable -->
+        <Grid IsVisible="{Binding !IsEditing}" Background="Transparent" Cursor="Hand" DoubleTapped="OnDoubleTapItem">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Panel Grid.Column="1" Classes="action_button">
+                <Button Classes="icon stroke" IsVisible="{Binding CanRemove}" Command="{Binding DeleteCommand}">
+                    <PathIcon Data="{StaticResource Delete}" />
+                </Button>
+                <Button Classes="icon stroke" IsVisible="{Binding CanHide}"
+                        Command="{Binding HideCommand}">
+                    <PathIcon Data="{StaticResource EyeHideRegular}" />
+                </Button>
+            </Panel>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                       TextTrimming="CharacterEllipsis" Text="{Binding Title}" />
+        </Grid>
+        <Button Name="FinishEdit" IsVisible="False" Command="{Binding SetEditStatusCommand}"
+                CommandParameter="{StaticResource False}" />
+        <TextBox Name="TextEdit" LostFocus="OnTextEditLostFocus"
+                 IsVisible="{Binding IsEditing}" Text="{Binding TextEdit}">
+            <TextBox.KeyBindings>
+                <KeyBinding Gesture="Enter" Command="{Binding SaveCommand}" />
+                <KeyBinding Gesture="Escape" Command="{Binding SetEditStatusCommand}"
+                            CommandParameter="{StaticResource False}" />
+            </TextBox.KeyBindings>
+        </TextBox>
+    </Panel>
+</UserControl>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:AvaloniaTodoAPp.Controls"
+                    xmlns:converters="clr-namespace:AvaloniaTodoAPp.Converters">
+
+    <!-- Design time preview -->
+    <Design.PreviewWith>
+        <Border Margin="20">
+            <controls:AvatarList Size="72" />
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:AvatarList}" TargetType="controls:AvatarList">
+        <ControlTheme.Resources>
+            <converters:SizeToBorderThicknessConverter x:Key="BorderThicknessConverter" />
+            <converters:SizeToSpacing x:Key="SizeToSpacing" />
+        </ControlTheme.Resources>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemRegionBrush}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource AncestorType=controls:AvatarList}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ReversibleStackPanel
+                                ReverseOrder="{Binding ReverseOrder, RelativeSource={RelativeSource AncestorType=controls:AvatarList}}"
+                                Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=controls:AvatarList}}"
+                                Spacing="{Binding Size, RelativeSource={RelativeSource AncestorType=controls:AvatarList}, Converter={StaticResource SizeToSpacing}}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

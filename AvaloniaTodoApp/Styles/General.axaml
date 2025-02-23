@@ -3,7 +3,7 @@
     <Design.PreviewWith>
         <Border BorderThickness="1" BorderBrush="Red">
             <!-- Add Controls for Previewer Here -->
-            <TabControl SelectedIndex="1">
+            <TabControl SelectedIndex="1" TabStripPlacement="Left">
                 <TabItem Header="All" IsSelected="True" />
                 <TabItem Header="Tab 2" />
                 <TabItem Header="Tab 3" />

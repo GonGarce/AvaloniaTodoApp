@@ -1,0 +1,57 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border BorderThickness="1" BorderBrush="Red">
+            <!-- Add Controls for Previewer Here -->
+            <StackPanel Classes="dialog" MaxWidth="400">
+                <Border Classes="dialog_title">
+                    <TextBlock Classes="important" Text="{DynamicResource TitleDeleteList}" />
+                </Border>
+                <StackPanel Classes="dialog_content">
+                    <TextBlock ClipToBounds="False" Text="{StaticResource TextDeleteList}" />
+                    <TextBlock Classes="important"  Text="{StaticResource TextActionNoUndo}" Margin="0 20 0 0" />
+                </StackPanel>
+                <Border Classes="dialog_footer">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="32">
+                        <Button Classes="stroke" Content="{StaticResource ActionCancel}" />
+                        <Button Classes="stroke danger" Content="{StaticResource ActionDelete}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    <Style Selector=".dialog TextBlock.important">
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style Selector="Border.dialog_title">
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+    </Style>
+    <Style Selector=".dialog_title TextBlock">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="StackPanel.dialog_content">
+        <Setter Property="Spacing" Value="10" />
+        <Setter Property="Margin" Value="20" />
+    </Style>
+    <Style Selector="StackPanel.dialog_content TextBlock">
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="Border.dialog_footer">
+        <Setter Property="BorderThickness" Value="0 1 0 0" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="Padding" Value="20" />
+    </Style>
+    <Style Selector=".dialog_footer Button">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="MinWidth" Value="150" />
+    </Style>
+</Styles>

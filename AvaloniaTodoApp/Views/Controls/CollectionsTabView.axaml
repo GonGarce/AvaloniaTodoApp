@@ -1,0 +1,70 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:AvaloniaTodoAPp.ViewModels.Controls"
+             xmlns:controls1="clr-namespace:AvaloniaTodoApp.ViewModels.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaTodoApp.Views.Controls.CollectionsTabView"
+             x:DataType="controls:CollectionsTabViewModel">
+
+    <Design.DataContext>
+        <controls:CollectionsTabViewModel >
+                <controls:CollectionsTabViewModel.Tabs>
+                    <controls1:CollectionItemViewModel Hidden="False" Title="Lista 1" />
+                    <controls1:CollectionItemViewModel Hidden="False" Title="Lista 2" />
+                    <controls1:CollectionItemViewModel Hidden="False" Title="Lista 3" />
+                </controls:CollectionsTabViewModel.Tabs>
+        </controls:CollectionsTabViewModel>
+    </Design.DataContext>
+
+    <DockPanel Background="{DynamicResource BackgroundTabs}" Width="280">
+        <!-- Header -->
+        <Grid DockPanel.Dock="Top" Opacity="10" HorizontalAlignment="Stretch" Margin="14 12 0 0"
+              ColumnDefinitions="*, Auto, Auto">
+            <TextBlock Grid.Column="0" Text="Lists" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
+            <Button Grid.Column="1" Classes="icon stroke" Width="26" Height="26"
+                    Command="{Binding SetNewListStatusCommand}" CommandParameter="{StaticResource True}">
+                <PathIcon Data="{StaticResource AddRegular}" Height="14"></PathIcon>
+            </Button>
+            <Button Grid.Column="2" Classes="icon stroke" Margin="6 0 12 0" Width="26" Height="26">
+                <PathIcon Data="{StaticResource MoreVerticalRegular}" Height="14"></PathIcon>
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <!--<MenuItem Header="Rearrange">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource ReorderDotsRegular}" />
+                            </MenuItem.Icon>
+                        </MenuItem>-->
+                        <MenuItem Header="{DynamicResource MenuShowDefault}" Command="{Binding ShowAllCommand}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource EyeShowRegular}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource MenuSwitchTheme}" Command="{Binding SwitchThemeCommand}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource DarkThemeRegular}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+        <!-- Add field -->
+        <TextBox DockPanel.Dock="Top" Name="TextNewList" Watermark="New list" Margin="14 6 12 0"
+                 IsVisible="{Binding IsAdding}" Text="{Binding TextNewList}">
+            <TextBox.KeyBindings>
+                <KeyBinding Gesture="Enter" Command="{Binding AddNewListCommand}" />
+                <KeyBinding Gesture="Escape" Command="{Binding SetNewListStatusCommand}"
+                            CommandParameter="{StaticResource False}" />
+            </TextBox.KeyBindings>
+        </TextBox>
+        <!-- Tabs -->
+        <ScrollViewer>
+            <TabControl Classes="collections" TabStripPlacement="Left" HorizontalContentAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        SelectedItem="{Binding SelectedTab}"
+                        ItemsSource="{Binding Tabs}" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

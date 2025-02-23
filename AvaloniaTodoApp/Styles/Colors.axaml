@@ -10,6 +10,7 @@
     <Style>
         <Style.Resources>
             <Color x:Key="DangerColor">#FF2320</Color>
+            <Color x:Key="DangerColorLight">#dc626d</Color>
             <Color x:Key="DangerColorDark">#BA1B18</Color>
             <Color x:Key="PrimaryColor">rgb(0, 120, 215)</Color>
             <Color x:Key="PrimaryColorDark">rgb(0, 88, 158)</Color>

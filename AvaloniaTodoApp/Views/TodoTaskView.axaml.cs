@@ -25,14 +25,13 @@ public partial class TodoTaskView : UserControl
             _vm.ToggleCompleted();
         }
     }
-    private void ToggleImportant(object sender, TappedEventArgs args)
+    private void PreventDefault(object sender, TappedEventArgs args)
     {
         args.Handled = true;
     }
 
     protected override void OnDataContextChanged(EventArgs e)
     {
-        Debug.Print("MusicStoreView:OnDataContextChanged");
         //_vm?.Dispose();
 
         if (DataContext is TodoTaskViewModel vm)

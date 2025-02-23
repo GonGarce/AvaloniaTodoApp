@@ -1,20 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AvaloniaTodoAPp.ViewModels;
+﻿using AvaloniaTodoAPp.ViewModels;
 
 namespace AvaloniaTodoAPp.Memento;
 
-public class CommandAddTask(TodoTaskViewModel task) : IMCommand
+public class CommandAddTask(TodoTaskViewModel task) : CommandAddOrRemoveTask(task)
 {
-    private TodoTaskViewModel Task { get; } = task;
-
-    public List<TodoTaskViewModel> DoCommand(List<TodoTaskViewModel> list)
+    public override void DoCommand()
     {
-        return list.Prepend(Task).ToList();
+        AddCommand();
     }
 
-    public List<TodoTaskViewModel> UndoCommand(List<TodoTaskViewModel> list)
+    public override void UndoCommand()
     {
-        return list.Skip(1).ToList();
+        RemoveCommand();
     }
 }

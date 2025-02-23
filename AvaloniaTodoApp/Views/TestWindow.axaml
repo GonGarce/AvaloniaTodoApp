@@ -1,0 +1,27 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
+        xmlns:controls="clr-namespace:AvaloniaTodoAPp.Controls"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        x:Class="AvaloniaTodoApp.Views.TestWindow"
+        x:DataType="vm:TestWindowViewModel"
+        Title="TestWindow">
+
+    <Design.DataContext>
+        <vm:TestWindowViewModel />
+    </Design.DataContext>
+
+    <StackPanel Background="{Binding Color}" Spacing="10">
+        <TextBox Text="{Binding Text}"></TextBox>
+        <Button Content="Convert" Command="{Binding ConvertCommand}"></Button>
+        <StackPanel Spacing="10" Background="{DynamicResource SystemRegionBrush}">
+            <controls:Avatar Username="Alex" />
+            <controls:AvatarList />
+        </StackPanel>
+        <StackPanel>
+            <Button Command="{Binding SelectCommand}">Action</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

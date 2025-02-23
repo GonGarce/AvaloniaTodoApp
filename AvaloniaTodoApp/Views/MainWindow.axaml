@@ -3,83 +3,131 @@
         xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:controls="clr-namespace:AvaloniaTodoApp.Views.Controls"
+        xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+        xmlns:controls1="clr-namespace:AvaloniaTodoAPp.ViewModels.Controls"
+        xmlns:controls2="clr-namespace:AvaloniaTodoApp.ViewModels.Controls"
+        xmlns:controls3="clr-namespace:AvaloniaTodoAPp.Controls"
+        xmlns:lang="clr-namespace:AvaloniaTodoApp.Lang"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+        MinWidth="720" MinHeight="480"
         x:Class="AvaloniaTodoAPp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaTodoAPp">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel />
+        <vm:MainWindowViewModel>
+            <vm:MainWindowViewModel.CollectionsTabViewModel>
+                <controls1:CollectionsTabViewModel>
+                    <controls1:CollectionsTabViewModel.Tabs>
+                        <controls2:CollectionItemViewModel Hidden="False" Title="Lista 1" />
+                        <controls2:CollectionItemViewModel Hidden="False" Title="Lista 2" />
+                        <controls2:CollectionItemViewModel Hidden="False" Title="Lista 3" />
+                    </controls1:CollectionsTabViewModel.Tabs>
+                </controls1:CollectionsTabViewModel>
+            </vm:MainWindowViewModel.CollectionsTabViewModel>
+        </vm:MainWindowViewModel>
     </Design.DataContext>
 
-    <Window.KeyBindings>
-        <KeyBinding Gesture="Ctrl+K" />
-    </Window.KeyBindings>
-    
-    <DockPanel>
-        <TextBox DockPanel.Dock="Top"
-                 Name="NewTaskInput"
-                 Watermark="{Binding Watermark}"
-                 Margin="20 20 20 6" Padding="8"
-                 Text="{Binding NewTaskText}">
-            <TextBox.InnerLeftContent>
-                <Button Name="SearchButton" HotKey="Ctrl+K" IsVisible="False" />
-            </TextBox.InnerLeftContent>
-            <TextBox.InnerRightContent>
-                <Button Classes="icon primary" HorizontalAlignment="Right" VerticalAlignment="Center"
-                        IsDefault="True" Command="{Binding AddTaskCommand}">
-                    <PathIcon Data="{StaticResource AddSquareRegular}" />
-                </Button>
-            </TextBox.InnerRightContent>
-        </TextBox>
-        <DockPanel DockPanel.Dock="Top" Margin="20 0">
-            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                <TabControl SelectedIndex="{Binding SelectedTab}">
-                    <TabItem Header="{DynamicResource TabAll}" />
-                    <TabItem Header="{DynamicResource TabTodo}" />
-                    <TabItem Header="{DynamicResource TabCritical}" />
-                </TabControl>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Classes="icon primary"
-                        Command="{Binding UndoCommand}"
-                        HotKey="Ctrl+Z">
-                    <PathIcon Data="{StaticResource ArrowUndoRegular}" />
-                </Button>
-                <Button Classes="icon primary" Command="{Binding ClearTasksCommand}">
-                    <PathIcon Data="{StaticResource TaskList}" />
-                </Button>
-                <Button Classes="icon" HorizontalAlignment="Center">
-                    <PathIcon Data="{StaticResource OptionsRegular}" />
-                    <Button.Flyout>
-                        <MenuFlyout>
-                            <MenuItem Classes.active="{Binding SortRecentFirst}" Header="Recent first"
-                                      Command="{Binding SortTasksCommand}"
-                                      CommandParameter="{StaticResource True}">
-                                <MenuItem.Icon>
-                                    <PathIcon Data="{StaticResource ArrowUpRegular}" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Classes.active="{Binding !SortRecentFirst}" Header="Recent last"
-                                      Command="{Binding SortTasksCommand}"
-                                      CommandParameter="{StaticResource False}">
-                                <MenuItem.Icon>
-                                    <PathIcon Data="{StaticResource ArrowDownRegular}" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </MenuFlyout>
-                    </Button.Flyout>
-                </Button>
-            </StackPanel>
-        </DockPanel>
+    <dialogHostAvalonia:DialogHost
+        Identifier="CollectionsDialogHost"
+        DialogMargin="0"
+        dialogHostAvalonia:DialogHostStyle.CornerRadius="8"
+        DisableOpeningAnimation="True"
+        BlurBackground="False">
 
-        <ScrollViewer>
-            <ItemsControl Background="Transparent"
-                          Margin="20 0"
-                          ItemsSource="{Binding ShowedTasks, FallbackValue='Loading your tasks...'}"/>
-        </ScrollViewer>
-    </DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <controls:CollectionsTabView Grid.Column="0" DataContext="{Binding CollectionsTabViewModel}" />
+            <DockPanel Grid.Column="1">
+                <Grid DockPanel.Dock="Top" Margin="18 8 16 0" ColumnDefinitions="Auto,*" Height="32">
+                    <TextBlock
+                        Grid.Column="0" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"
+                        Text="{Binding Tasks, Converter={StaticResource CollectionCount}, StringFormat={x:Static lang:Resources.Tasks}}" />
+                    <HyperlinkButton Grid.Column="1" Padding="2" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                     IsVisible="{Binding Avatars, Converter={StaticResource SmallerCount}, ConverterParameter=2}">
+                        <TextBlock FontSize="14" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}">
+                            <InlineUIContainer BaselineAlignment="Baseline">
+                                <PathIcon Data="{StaticResource LockRegular}" Height="14" Width="14" />
+                            </InlineUIContainer>
+                            <Run Text="{x:Static lang:Resources.PrivateList}" TextDecorations="Underline" />
+                        </TextBlock>
+                    </HyperlinkButton>
+                    <controls3:AvatarList
+                        IsVisible="{Binding Avatars, Converter={StaticResource GreaterCount}, ConverterParameter=1}"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Flow="RightLeft"
+                        Size="32"
+                        Avatars="{Binding Avatars}" />
+                </Grid>
+                <TextBox DockPanel.Dock="Top"
+                         Name="NewTaskInput"
+                         Watermark="{Binding Watermark}"
+                         Margin="18 6 18 6" Padding="8"
+                         Text="{Binding NewTaskText}">
+                    <TextBox.InnerLeftContent>
+                        <Button Name="SearchButton" HotKey="Ctrl+K" IsVisible="False" />
+                    </TextBox.InnerLeftContent>
+                    <TextBox.InnerRightContent>
+                        <Button Classes="icon primary" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                IsDefault="True" Command="{Binding AddTaskCommand}">
+                            <PathIcon Data="{StaticResource AddSquareRegular}" />
+                        </Button>
+                    </TextBox.InnerRightContent>
+                </TextBox>
+                <DockPanel DockPanel.Dock="Top" Margin="20 0">
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <TabControl SelectedIndex="{Binding SelectedTab}" IsVisible="{Binding ShowTabs}">
+                            <TabItem Header="{DynamicResource TabAll}" />
+                            <TabItem Header="{DynamicResource TabTodo}" />
+                            <TabItem Header="{DynamicResource TabCritical}" />
+                        </TabControl>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 6">
+                        <Button Classes="icon primary"
+                                Command="{Binding UndoCommand}"
+                                HotKey="Ctrl+Z">
+                            <PathIcon Data="{StaticResource ArrowUndoRegular}" />
+                        </Button>
+                        <Button Classes="icon primary" ToolTip.Tip="{DynamicResource TipRemoveCompleted}"
+                                Command="{Binding ClearTasksCommand}">
+                            <PathIcon Data="{StaticResource TextCollapseRegular}" />
+                        </Button>
+                        <Button Classes="icon" HorizontalAlignment="Center">
+                            <PathIcon Data="{StaticResource OptionsRegular}" />
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuItem Classes.active="{Binding SortRecentFirst}" Header="Recent first"
+                                              Command="{Binding SortTasksCommand}"
+                                              CommandParameter="{StaticResource True}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="{StaticResource ArrowUpRegular}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Classes.active="{Binding !SortRecentFirst}" Header="Recent last"
+                                              Command="{Binding SortTasksCommand}"
+                                              CommandParameter="{StaticResource False}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="{StaticResource ArrowDownRegular}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+
+                <ScrollViewer>
+                    <ItemsControl Background="Transparent"
+                                  Margin="20 0"
+                                  ItemsSource="{Binding ShowedTasks, FallbackValue='Loading your tasks...'}" />
+                </ScrollViewer>
+            </DockPanel>
+        </Grid>
+    </dialogHostAvalonia:DialogHost>
 </Window>

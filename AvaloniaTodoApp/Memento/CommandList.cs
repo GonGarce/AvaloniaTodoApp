@@ -8,27 +8,25 @@ public class CommandList(List<IMCommand> commands) : IMCommand
 {
     private List<IMCommand> _commands = commands;
 
-    public List<TodoTaskViewModel> DoCommand(List<TodoTaskViewModel> list)
+    public void DoCommand()
     {
         var commands = _commands;
         while (true)
         {
-            if (commands.Count == 0) return list;
+            if (commands.Count == 0) return;
             var c = commands[0];
             commands = commands.Skip(1).ToList();
-            list = c.DoCommand(list);
         }
     }
 
-    public List<TodoTaskViewModel> UndoCommand(List<TodoTaskViewModel> list)
+    public void UndoCommand()
     {
         var commands = _commands;
         while (true)
         {
-            if (commands.Count == 0) return list;
+            if (commands.Count == 0) return;
             var c = commands[0];
             commands = commands.Skip(1).ToList();
-            list = c.UndoCommand(list);
         }
     }
 }
