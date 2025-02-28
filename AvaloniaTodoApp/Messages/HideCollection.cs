@@ -1,4 +1,4 @@
-﻿using AvaloniaTodoApp.ViewModels.Controls;
+﻿using AvaloniaTodoApp.ViewModels.Collections;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace AvaloniaTodoAPp.Messages;

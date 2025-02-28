@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:AvaloniaTodoApp.Views.Controls"
         xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
-        xmlns:controls1="clr-namespace:AvaloniaTodoAPp.ViewModels.Controls"
-        xmlns:controls2="clr-namespace:AvaloniaTodoApp.ViewModels.Controls"
         xmlns:controls3="clr-namespace:AvaloniaTodoAPp.Controls"
         xmlns:lang="clr-namespace:AvaloniaTodoApp.Lang"
+        xmlns:collections="clr-namespace:AvaloniaTodoAPp.ViewModels.Collections"
+        xmlns:collections1="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
         MinWidth="720" MinHeight="480"
         x:Class="AvaloniaTodoAPp.Views.MainWindow"
@@ -19,13 +19,13 @@
     <Design.DataContext>
         <vm:MainWindowViewModel>
             <vm:MainWindowViewModel.CollectionsTabViewModel>
-                <controls1:CollectionsTabViewModel>
-                    <controls1:CollectionsTabViewModel.Tabs>
-                        <controls2:CollectionItemViewModel Hidden="False" Title="Lista 1" />
-                        <controls2:CollectionItemViewModel Hidden="False" Title="Lista 2" />
-                        <controls2:CollectionItemViewModel Hidden="False" Title="Lista 3" />
-                    </controls1:CollectionsTabViewModel.Tabs>
-                </controls1:CollectionsTabViewModel>
+                <collections:CollectionsTabViewModel>
+                    <collections:CollectionsTabViewModel.Tabs>
+                        <collections1:CollectionItemViewModel Hidden="False" Title="Lista 1" />
+                        <collections1:CollectionItemViewModel Hidden="False" Title="Lista 2" />
+                        <collections1:CollectionItemViewModel Hidden="False" Title="Lista 3" />
+                    </collections:CollectionsTabViewModel.Tabs>
+                </collections:CollectionsTabViewModel>
             </vm:MainWindowViewModel.CollectionsTabViewModel>
         </vm:MainWindowViewModel>
     </Design.DataContext>

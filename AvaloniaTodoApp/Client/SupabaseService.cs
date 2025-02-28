@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using Avalonia.Controls.Notifications;
+using AvaloniaTodoApp.App;
 using Microsoft.Extensions.Configuration;
 using Supabase.Gotrue;
 
@@ -12,10 +14,6 @@ using Client = Supabase.Client;
 
 public static class SupabaseService
 {
-    //private static readonly string SupabaseUrl = "https://vpkhzfmvyhckgifzgsud.supabase.co";
-    //private static readonly string ApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwa2h6Zm12eWhja2dpZnpnc3VkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAxOTMxNjksImV4cCI6MjA1NTc2OTE2OX0.m2b9C70ue2PfbV-u5HtnFw4QJV9nEYDwYoTwyiK7toU";
-    //private static readonly string SettingsUrl = $"{SupabaseUrl}/auth/v1/settings?apikey={ApiKey}";
-
     private static void DebugHandler(string category, string message, Exception? exception)
     {
         Console.WriteLine($"[{category}]: {message}");
@@ -24,16 +22,11 @@ public static class SupabaseService
 
     public static async Task<Client> InitService()
     {
-        IConfiguration config = new ConfigurationBuilder()
-            .AddJsonFile(".env/settings.json")
-            .Build();
-        IConfigurationSection section = config.GetSection("Supabase");
-        string supabaseUrl = section["url"] ?? throw new InvalidOperationException();
-        string apiKey = section["key"] ?? throw new InvalidOperationException();
-        string settingsUrl = $"{supabaseUrl}/auth/v1/settings?apikey={apiKey}";
+        var credentials = ConfigManager.GetServerCredentials();
+        string settingsUrl = $"{credentials.Url}/auth/v1/settings?apikey={credentials.ApiKey}";
 
         var sessionHandler = new SessionHandler();
-        var supabase = new Client(supabaseUrl, apiKey, new Supabase.SupabaseOptions
+        var supabase = new Client(credentials.Url, credentials.ApiKey, new Supabase.SupabaseOptions
         {
             // Set the options to auto-refresh the JWT token with a background thread.
             AutoRefreshToken = true,

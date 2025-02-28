@@ -16,8 +16,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using AvaloniaTodoAPp.Memento;
-using AvaloniaTodoApp.ViewModels.Controls;
-using AvaloniaTodoAPp.ViewModels.Controls;
+using AvaloniaTodoApp.ViewModels.Collections;
+using AvaloniaTodoAPp.ViewModels.Collections;
 using Supabase.Realtime;
 using Supabase.Realtime.PostgresChanges;
 

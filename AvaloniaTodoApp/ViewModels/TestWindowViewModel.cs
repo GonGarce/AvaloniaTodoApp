@@ -4,13 +4,17 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Media;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using AvaloniaTodoApp.App;
+using AvaloniaTodoAPp.Dialogs;
 using AvaloniaTodoAPp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Color = Avalonia.Media.Color;
 using CommunityToolkit.Mvvm.Input;
+using DialogHostAvalonia;
 using Supabase.Postgrest;
+using System.Threading.Tasks;
 
 namespace AvaloniaTodoAPp.ViewModels;
 
@@ -38,6 +42,9 @@ public partial class TestWindowViewModel : ViewModelBase
             });
     }
 
+    [ObservableProperty]
+    private ObservableCollection<SCollection> _collections = [];
+
     [RelayCommand]
     private void Select()
     {
@@ -49,8 +56,17 @@ public partial class TestWindowViewModel : ViewModelBase
             .Get().ContinueWith(task =>
             {
                 var col = task.Result;
+                Collections = new ObservableCollection<SCollection>(col.Models);
                 Console.WriteLine($"Found: {col.Models.Count}");
             });
+        
+        
+    }
+
+    [RelayCommand]
+    private async Task Invite()
+    {
+        var result = await DialogHost.Show(new DeleteDialogModel(""), "CollectionsDialogHost");
     }
 
     [ObservableProperty]

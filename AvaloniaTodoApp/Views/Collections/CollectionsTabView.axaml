@@ -2,20 +2,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="using:AvaloniaTodoAPp.ViewModels.Controls"
-             xmlns:controls1="clr-namespace:AvaloniaTodoApp.ViewModels.Controls"
+             xmlns:collections="clr-namespace:AvaloniaTodoAPp.ViewModels.Collections"
+             xmlns:collections1="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaTodoApp.Views.Controls.CollectionsTabView"
-             x:DataType="controls:CollectionsTabViewModel">
+             x:DataType="collections:CollectionsTabViewModel">
 
     <Design.DataContext>
-        <controls:CollectionsTabViewModel >
-                <controls:CollectionsTabViewModel.Tabs>
-                    <controls1:CollectionItemViewModel Hidden="False" Title="Lista 1" />
-                    <controls1:CollectionItemViewModel Hidden="False" Title="Lista 2" />
-                    <controls1:CollectionItemViewModel Hidden="False" Title="Lista 3" />
-                </controls:CollectionsTabViewModel.Tabs>
-        </controls:CollectionsTabViewModel>
+        <collections:CollectionsTabViewModel >
+                <collections:CollectionsTabViewModel.Tabs>
+                    <collections1:CollectionItemViewModel Hidden="False" Title="Lista 1" />
+                    <collections1:CollectionItemViewModel Hidden="False" Title="Lista 2" />
+                    <collections1:CollectionItemViewModel Hidden="False" Title="Lista 3" />
+                </collections:CollectionsTabViewModel.Tabs>
+        </collections:CollectionsTabViewModel>
     </Design.DataContext>
 
     <DockPanel Background="{DynamicResource BackgroundTabs}" Width="280">

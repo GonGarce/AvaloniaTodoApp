@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AvaloniaTodoApp.App;
 using AvaloniaTodoAPp.Client;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,7 +10,7 @@ public partial class LoginWindowViewModel : ViewModelBase
 {
     [ObservableProperty]
     private string _email = "";
-    
+
     [ObservableProperty]
     private string _username = "";
 
@@ -19,6 +20,9 @@ public partial class LoginWindowViewModel : ViewModelBase
     [RelayCommand]
     public async Task Login()
     {
+        var credentials = ConfigManager.GetUserCredentials();
+        Email = credentials.Url;
+        Password = credentials.ApiKey;
         await LoginPage.Register(Email, Password, Username);
     }
 }

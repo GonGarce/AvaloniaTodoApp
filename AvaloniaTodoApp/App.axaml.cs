@@ -6,7 +6,7 @@ using Avalonia.Threading;
 using AvaloniaTodoApp.App;
 using AvaloniaTodoAPp.Client;
 using AvaloniaTodoAPp.ViewModels;
-using AvaloniaTodoAPp.ViewModels.Controls;
+using AvaloniaTodoApp.ViewModels.Collections;
 using AvaloniaTodoApp.Views;
 using AvaloniaTodoAPp.Views;
 

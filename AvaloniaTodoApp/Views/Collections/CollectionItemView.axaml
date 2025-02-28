@@ -2,12 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="using:AvaloniaTodoApp.ViewModels.Controls"
+             xmlns:collections="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
              x:Class="AvaloniaTodoApp.Views.Controls.CollectionItemView"
-             x:DataType="controls:CollectionItemViewModel">
+             x:DataType="collections:CollectionItemViewModel">
     <Design.DataContext>
-        <controls:CollectionItemViewModel Title="Lista 1" />
+        <collections:CollectionItemViewModel Title="Lista 1" />
     </Design.DataContext>
     
     <UserControl.Styles>

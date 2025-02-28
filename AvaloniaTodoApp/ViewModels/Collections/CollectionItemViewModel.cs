@@ -12,7 +12,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DialogHostAvalonia;
 
-namespace AvaloniaTodoApp.ViewModels.Controls;
+namespace AvaloniaTodoApp.ViewModels.Collections;
 
 public partial class CollectionItemViewModel(
     int id,

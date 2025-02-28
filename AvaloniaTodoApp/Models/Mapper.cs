@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AvaloniaTodoAPp.ViewModels;
-using AvaloniaTodoApp.ViewModels.Controls;
+using AvaloniaTodoApp.ViewModels.Collections;
 
 namespace AvaloniaTodoAPp.Models;
 
