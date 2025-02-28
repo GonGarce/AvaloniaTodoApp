@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AvaloniaTodoAPp.Messages;
+namespace AvaloniaTodoApp.Messages;
 
 public class RemoveTask(Guid id) : IUiMessage
 {

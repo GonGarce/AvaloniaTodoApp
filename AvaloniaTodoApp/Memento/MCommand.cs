@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.ViewModels;
 
-namespace AvaloniaTodoAPp.Memento;
+namespace AvaloniaTodoApp.Memento;
 
 public interface IMCommand
 {

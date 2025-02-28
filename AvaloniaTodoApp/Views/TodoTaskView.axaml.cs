@@ -5,9 +5,9 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.ViewModels;
 
-namespace AvaloniaTodoAPp.Views;
+namespace AvaloniaTodoApp.Views;
 
 public partial class TodoTaskView : UserControl
 {

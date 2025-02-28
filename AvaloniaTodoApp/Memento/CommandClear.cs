@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using AsyncAwaitBestPractices;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Messages;
-using AvaloniaTodoAPp.Models;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Messages;
+using AvaloniaTodoApp.Models;
+using AvaloniaTodoApp.ViewModels;
 using Supabase.Postgrest;
 
-namespace AvaloniaTodoAPp.Memento;
+namespace AvaloniaTodoApp.Memento;
 
 public class CommandClear() : IMCommand
 {

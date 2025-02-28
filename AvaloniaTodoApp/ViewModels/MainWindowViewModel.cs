@@ -8,20 +8,20 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Controls;
-using AvaloniaTodoAPp.Messages;
-using AvaloniaTodoAPp.Models;
+using AvaloniaTodoApp;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Controls;
+using AvaloniaTodoApp.Messages;
+using AvaloniaTodoApp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using AvaloniaTodoAPp.Memento;
+using AvaloniaTodoApp.Memento;
 using AvaloniaTodoApp.ViewModels.Collections;
-using AvaloniaTodoAPp.ViewModels.Collections;
 using Supabase.Realtime;
 using Supabase.Realtime.PostgresChanges;
 
-namespace AvaloniaTodoAPp.ViewModels;
+namespace AvaloniaTodoApp.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {

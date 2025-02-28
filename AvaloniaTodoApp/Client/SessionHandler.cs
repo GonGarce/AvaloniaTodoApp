@@ -9,7 +9,7 @@ using Supabase.Gotrue;
 using Newtonsoft.Json;
 
 
-namespace AvaloniaTodoAPp.Client;
+namespace AvaloniaTodoApp.Client;
 
 public class SessionHandler : IGotrueSessionPersistence<Session>
 {

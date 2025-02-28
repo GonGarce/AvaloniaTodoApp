@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:collections="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
-             x:Class="AvaloniaTodoApp.Views.Controls.CollectionItemView"
+             x:Class="AvaloniaTodoApp.Views.Collections.CollectionItemView"
              x:DataType="collections:CollectionItemViewModel">
     <Design.DataContext>
         <collections:CollectionItemViewModel Title="Lista 1" />

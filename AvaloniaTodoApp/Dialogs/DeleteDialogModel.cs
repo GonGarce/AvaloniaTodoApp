@@ -1,8 +1,8 @@
 ﻿using System;
-using AvaloniaTodoAPp.Models;
+using AvaloniaTodoApp.Models;
 using DialogHostAvalonia;
 
-namespace AvaloniaTodoAPp.Dialogs;
+namespace AvaloniaTodoApp.Dialogs;
 
 public class DeleteDialogModel(string name)
 {

@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Styling;
 
-namespace AvaloniaTodoApp.App;
+namespace AvaloniaTodoApp.Global;
 
 public static class ThemeManager
 {
@@ -9,11 +9,11 @@ public static class ThemeManager
     {
         if (Application.Current!.ActualThemeVariant == ThemeVariant.Light)
         {
-            Application.Current!.RequestedThemeVariant = ThemeVariant.Dark;
+            Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
         }
         else
         {
-            Application.Current!.RequestedThemeVariant = ThemeVariant.Light;
+            Application.Current.RequestedThemeVariant = ThemeVariant.Light;
         }
     }
 }

@@ -2,15 +2,15 @@ using System;
 using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Input;
-using AvaloniaTodoAPp.Memento;
-using AvaloniaTodoAPp.Messages;
-using AvaloniaTodoAPp.Models;
+using AvaloniaTodoApp.Memento;
+using AvaloniaTodoApp.Messages;
+using AvaloniaTodoApp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Meziantou.Framework;
 
-namespace AvaloniaTodoAPp.ViewModels;
+namespace AvaloniaTodoApp.ViewModels;
 
 public partial class TodoTaskViewModel : ViewModelBase
 {

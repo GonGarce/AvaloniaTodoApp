@@ -1,4 +1,4 @@
-﻿namespace AvaloniaTodoAPp.Messages;
+﻿namespace AvaloniaTodoApp.Messages;
 
 public interface IUiMessage
 {

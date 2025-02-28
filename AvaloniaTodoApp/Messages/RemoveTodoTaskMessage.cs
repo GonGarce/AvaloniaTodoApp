@@ -1,6 +1,6 @@
-﻿using AvaloniaTodoAPp.ViewModels;
+﻿using AvaloniaTodoApp.ViewModels;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace AvaloniaTodoAPp.Messages;
+namespace AvaloniaTodoApp.Messages;
 
 public class RemoveTodoTaskMessage(TodoTaskViewModel value) : ValueChangedMessage<TodoTaskViewModel>(value);

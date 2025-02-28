@@ -5,9 +5,9 @@ using Avalonia;
 using Avalonia.Media;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Dialogs;
-using AvaloniaTodoAPp.Models;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Dialogs;
+using AvaloniaTodoApp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Color = Avalonia.Media.Color;
@@ -16,7 +16,7 @@ using DialogHostAvalonia;
 using Supabase.Postgrest;
 using System.Threading.Tasks;
 
-namespace AvaloniaTodoAPp.ViewModels;
+namespace AvaloniaTodoApp.ViewModels;
 
 public partial class TestWindowViewModel : ViewModelBase
 {

@@ -3,7 +3,7 @@ using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 
-namespace AvaloniaTodoAPp.Converters;
+namespace AvaloniaTodoApp.Converters;
 
 public class SizeToFontSizeConverter : IValueConverter
 {

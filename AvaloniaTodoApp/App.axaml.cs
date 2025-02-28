@@ -3,14 +3,14 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Client;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Client;
+using AvaloniaTodoApp.ViewModels;
 using AvaloniaTodoApp.ViewModels.Collections;
 using AvaloniaTodoApp.Views;
-using AvaloniaTodoAPp.Views;
+using AvaloniaTodoApp.Views;
 
-namespace AvaloniaTodoAPp;
+namespace AvaloniaTodoApp;
 
 public partial class App : Application
 {

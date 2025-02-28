@@ -1,4 +1,4 @@
-﻿namespace AvaloniaTodoAPp.ViewModels.Dialogs;
+﻿namespace AvaloniaTodoApp.ViewModels.Dialogs;
 
 public class InviteDialogViewModel : ViewModelBase
 {

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.ViewModels;
 using AvaloniaTodoApp.ViewModels.Collections;
 
-namespace AvaloniaTodoAPp.Models;
+namespace AvaloniaTodoApp.Models;
 
 public class Mapper
 {

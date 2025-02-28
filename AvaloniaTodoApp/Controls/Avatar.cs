@@ -6,7 +6,7 @@ using Avalonia.Data;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 
-namespace AvaloniaTodoAPp.Controls;
+namespace AvaloniaTodoApp.Controls;
 
 public class Avatar : TemplatedControl
 {

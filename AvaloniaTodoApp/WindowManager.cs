@@ -2,12 +2,12 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.ViewModels;
 using AvaloniaTodoApp.Views;
-using AvaloniaTodoAPp.Views;
+using AvaloniaTodoApp.Views;
 
-namespace AvaloniaTodoAPp;
+namespace AvaloniaTodoApp;
 
 public class WindowManager
 {

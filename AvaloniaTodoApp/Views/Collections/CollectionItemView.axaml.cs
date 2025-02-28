@@ -1,12 +1,8 @@
-using System;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using AvaloniaTodoAPp.Dialogs;
-using DialogHostAvalonia;
 
-namespace AvaloniaTodoApp.Views.Controls;
+namespace AvaloniaTodoApp.Views.Collections;
 
 public partial class CollectionItemView : UserControl
 {

@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Client;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Client;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace AvaloniaTodoAPp.ViewModels;
+namespace AvaloniaTodoApp.ViewModels;
 
 public partial class LoginWindowViewModel : ViewModelBase
 {

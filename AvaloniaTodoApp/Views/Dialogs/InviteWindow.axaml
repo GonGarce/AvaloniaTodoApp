@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:dialogs="clr-namespace:AvaloniaTodoAPp.ViewModels.Dialogs"
+        xmlns:dialogs="clr-namespace:AvaloniaTodoApp.ViewModels.Dialogs"
+        xmlns:controls="clr-namespace:AvaloniaTodoApp.Controls"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
         Width="500" Height="600"
         x:Class="AvaloniaTodoApp.Views.Dialogs.InviteWindow"
@@ -12,11 +13,60 @@
         <dialogs:InviteDialogViewModel />
     </Design.DataContext>
 
-    <Grid>
+    <Grid Margin="18">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+        <TextBlock Grid.Row="0" Text="Gongarce's task list" FontWeight="Bold" FontSize="18" />
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <TextBlock Text="Created on 16/02/2025" />
+        </StackPanel>
+        <TextBox Grid.Row="2" />
+        <TextBlock Grid.Row="3" Text="3 People" />
+        <ItemsControl Grid.Row="4">
+            <ItemsControl.Items>
+                <StackPanel Orientation="Vertical">
+                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
+                        <controls:Avatar Grid.Column="0" Username="Gonzalo" Size="40" />
+                        <StackPanel Grid.Column="1" Margin="8 ">
+                            <TextBlock Text="You" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="Admin" FontSize="13" Opacity="0.8"></TextBlock>
+                        </StackPanel>
+                        <Button Grid.Column="2" Classes="icon danger">
+                            <PathIcon Data="{StaticResource Delete}" />
+                        </Button>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
+                        <controls:Avatar Grid.Column="0" Username="Alex" Size="40" Opacity="0.5" />
+                        <StackPanel Grid.Column="1" Margin="8 " Opacity="0.5">
+                            <TextBlock Text="Alex" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="Request sent" FontSize="13" Opacity="0.8"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <Button Classes="icon primary">
+                                <PathIcon Data="{StaticResource ArrowUndoRegular}" />
+                            </Button>
+                            <Button Classes="icon danger">
+                                <PathIcon Data="{StaticResource Delete}" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
+                        <controls:Avatar Grid.Column="0" Username="Pau" Size="40" />
+                        <StackPanel Grid.Column="1" Margin="8 ">
+                            <TextBlock Text="Pau" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="" FontSize="13" Opacity="0.8"></TextBlock>
+                        </StackPanel>
+                        <Button Grid.Column="2" Classes="icon danger">
+                            <PathIcon Data="{StaticResource Delete}" />
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </ItemsControl.Items>
+        </ItemsControl>
     </Grid>
 </Window>

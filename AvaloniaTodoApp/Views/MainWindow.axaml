@@ -1,17 +1,16 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:AvaloniaTodoAPp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:AvaloniaTodoApp.Views.Controls"
         xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
-        xmlns:controls3="clr-namespace:AvaloniaTodoAPp.Controls"
+        x:Class="AvaloniaTodoApp.Views.MainWindow"
         xmlns:lang="clr-namespace:AvaloniaTodoApp.Lang"
-        xmlns:collections="clr-namespace:AvaloniaTodoAPp.ViewModels.Collections"
-        xmlns:collections1="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
+        xmlns:vm="clr-namespace:AvaloniaTodoApp.ViewModels"
+        xmlns:controls1="clr-namespace:AvaloniaTodoApp.Controls"
+        xmlns:collections="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
+        xmlns:collections1="clr-namespace:AvaloniaTodoApp.Views.Collections"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
         MinWidth="720" MinHeight="480"
-        x:Class="AvaloniaTodoAPp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaTodoAPp">
@@ -21,9 +20,9 @@
             <vm:MainWindowViewModel.CollectionsTabViewModel>
                 <collections:CollectionsTabViewModel>
                     <collections:CollectionsTabViewModel.Tabs>
-                        <collections1:CollectionItemViewModel Hidden="False" Title="Lista 1" />
-                        <collections1:CollectionItemViewModel Hidden="False" Title="Lista 2" />
-                        <collections1:CollectionItemViewModel Hidden="False" Title="Lista 3" />
+                        <collections:CollectionItemViewModel Hidden="False" Title="List 1" />
+                        <collections:CollectionItemViewModel Hidden="False" Title="List 2" />
+                        <collections:CollectionItemViewModel Hidden="False" Title="List 3" />
                     </collections:CollectionsTabViewModel.Tabs>
                 </collections:CollectionsTabViewModel>
             </vm:MainWindowViewModel.CollectionsTabViewModel>
@@ -42,7 +41,7 @@
                 <ColumnDefinition Width="280"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <controls:CollectionsTabView Grid.Column="0" DataContext="{Binding CollectionsTabViewModel}" />
+            <collections1:CollectionsTabView Grid.Column="0" DataContext="{Binding CollectionsTabViewModel}" />
             <DockPanel Grid.Column="1">
                 <Grid DockPanel.Dock="Top" Margin="18 8 16 0" ColumnDefinitions="Auto,*" Height="32">
                     <TextBlock
@@ -50,16 +49,16 @@
                         Text="{Binding Tasks, Converter={StaticResource CollectionCount}, StringFormat={x:Static lang:Resources.Tasks}}" />
                     <HyperlinkButton Grid.Column="1" Padding="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                                      IsVisible="{Binding Avatars, Converter={StaticResource SmallerCount}, ConverterParameter=2}">
-                        <TextBlock FontSize="14" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}">
-                            <InlineUIContainer BaselineAlignment="Baseline">
-                                <PathIcon Data="{StaticResource LockRegular}" Height="14" Width="14" />
-                            </InlineUIContainer>
-                            <Run Text="{x:Static lang:Resources.PrivateList}" TextDecorations="Underline" />
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <PathIcon Data="{StaticResource LockRegular}" Height="14" Width="18" />
+                            <TextBlock
+                                Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                                FontSize="14" Text="{x:Static lang:Resources.PrivateList}" />
+                        </StackPanel>
                     </HyperlinkButton>
-                    <controls3:AvatarList
-                        IsVisible="{Binding Avatars, Converter={StaticResource GreaterCount}, ConverterParameter=1}"
+                    <controls1:AvatarList
                         Grid.Column="1"
+                        IsVisible="{Binding Avatars, Converter={StaticResource GreaterCount}, ConverterParameter=1}"
                         HorizontalAlignment="Right"
                         Flow="RightLeft"
                         Size="32"

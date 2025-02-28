@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:AvaloniaTodoAPp.Controls"
-                    xmlns:converters="clr-namespace:AvaloniaTodoAPp.Converters">
+                    xmlns:controls="clr-namespace:AvaloniaTodoApp.Controls"
+                    xmlns:converters="clr-namespace:AvaloniaTodoApp.Converters">
 
     <!-- Design time preview -->
     <Design.PreviewWith>
@@ -15,7 +15,7 @@
                                          Foreground="Black" Text="+12" FontSize="12" FontWeight="Bold" />
                         <controls:Avatar Image="avares://AvaloniaTodoApp/Assets/horizontal1.jpg" />
                         <controls:Avatar Image="avares://AvaloniaTodoApp/Assets/horizontal1.jpg"
-                                         BorderBrush="DarkGray" BorderThickness="2"/>
+                                         BorderBrush="DarkGray" BorderThickness="2" />
                         <StackPanel Orientation="Horizontal" Spacing="-10">
                             <controls:Avatar Username="Gonzalo" />
                             <controls:Avatar Username="Alex" />
@@ -54,7 +54,7 @@
     <Color x:Key='AvatarColor12'>#ff5722</Color>
     <Color x:Key='AvatarColor13'>#795548</Color>
     <Color x:Key='AvatarColor14'>#607d8b</Color>
-    
+
     <ControlTheme x:Key="{x:Type controls:Avatar}" TargetType="controls:Avatar">
         <ControlTheme.Resources>
             <converters:SizeToFontSizeConverter x:Key="FontSizeConverter" />
@@ -64,9 +64,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel
-                    ClipToBounds="True"
-                    Width="{TemplateBinding Size}" Height="{TemplateBinding Size}">
+                <Panel Width="{TemplateBinding Size}" Height="{TemplateBinding Size}">
                     <Ellipse
                         Margin="1"
                         Fill="{Binding AvatarColor, RelativeSource={RelativeSource AncestorType=controls:Avatar}}" />
@@ -82,11 +80,13 @@
                         IsVisible="{TemplateBinding  Text, Converter={x:Static StringConverters.IsNullOrEmpty }}"
                         Foreground="{TemplateBinding Foreground}"
                         Width="{TemplateBinding Size, Converter={StaticResource FontSizeConverter}}" />
+                    <!-- Border to clip avatar image when present -->
                     <Border ClipToBounds="True"
                             Margin="1"
                             CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=controls:Avatar}}">
                         <Image Source="{TemplateBinding Image}" Stretch="Fill" />
                     </Border>
+                    <!-- Hover border to show with property -->
                     <Border ClipToBounds="True"
                             CornerRadius="{Binding Radius, RelativeSource={RelativeSource AncestorType=controls:Avatar}}"
                             BorderBrush="{TemplateBinding BorderBrush}"

@@ -4,17 +4,16 @@ using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Messages;
-using AvaloniaTodoAPp.Models;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Messages;
+using AvaloniaTodoApp.Models;
+using AvaloniaTodoApp.ViewModels;
 using AvaloniaTodoApp.ViewModels.Collections;
-using AvaloniaTodoAPp.ViewModels.Collections;
 using CommunityToolkit.Mvvm.Messaging;
 using Supabase.Postgrest;
 using Supabase.Postgrest.Responses;
 
-namespace AvaloniaTodoAPp;
+namespace AvaloniaTodoApp;
 
 public class MainWindowState
 {

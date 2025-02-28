@@ -1,4 +1,4 @@
-﻿namespace AvaloniaTodoApp.App;
+﻿namespace AvaloniaTodoApp.Global;
 
 public class ServerCredentials(string url, string apikey)
 {

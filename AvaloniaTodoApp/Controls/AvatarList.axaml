@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:AvaloniaTodoAPp.Controls"
-                    xmlns:converters="clr-namespace:AvaloniaTodoAPp.Converters">
+                    xmlns:controls="clr-namespace:AvaloniaTodoApp.Controls"
+                    xmlns:converters="clr-namespace:AvaloniaTodoApp.Converters">
 
     <!-- Design time preview -->
     <Design.PreviewWith>
@@ -18,7 +18,8 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SystemRegionBrush}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource AncestorType=controls:AvatarList}}">
+                <ItemsControl
+                    ItemsSource="{Binding Items, RelativeSource={RelativeSource AncestorType=controls:AvatarList}}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ReversibleStackPanel

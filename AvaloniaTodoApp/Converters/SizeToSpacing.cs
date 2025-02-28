@@ -4,7 +4,7 @@ using Avalonia;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 
-namespace AvaloniaTodoAPp.Converters;
+namespace AvaloniaTodoApp.Converters;
 
 public class SizeToSpacing : IValueConverter
 {

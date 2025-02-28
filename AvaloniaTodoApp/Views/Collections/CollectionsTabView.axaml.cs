@@ -1,8 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 
-namespace AvaloniaTodoApp.Views.Controls;
+namespace AvaloniaTodoApp.Views.Collections;
 
 public partial class CollectionsTabView : UserControl
 {

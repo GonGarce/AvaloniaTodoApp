@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.ViewModels;
 
-namespace AvaloniaTodoAPp.Memento;
+namespace AvaloniaTodoApp.Memento;
 
 public class CommandList(List<IMCommand> commands) : IMCommand
 {

@@ -40,10 +40,6 @@
         <DependentUpon>SplashWindow.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-      <Compile Update="Views\Controls\CollectionItemView.axaml.cs">
-        <DependentUpon>MyItemView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
     </ItemGroup>
     
     <ItemGroup>

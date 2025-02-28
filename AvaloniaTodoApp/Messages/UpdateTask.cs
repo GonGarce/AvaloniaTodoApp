@@ -1,6 +1,6 @@
-﻿using AvaloniaTodoAPp.ViewModels;
+﻿using AvaloniaTodoApp.ViewModels;
 
-namespace AvaloniaTodoAPp.Messages;
+namespace AvaloniaTodoApp.Messages;
 
 public class UpdateTask(TodoTaskViewModel task) : IUiMessage
 {

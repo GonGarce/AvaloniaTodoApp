@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
 using System.Threading.Tasks;
-using AvaloniaTodoAPp.Client;
-using AvaloniaTodoAPp.Models;
+using AvaloniaTodoApp.Client;
+using AvaloniaTodoApp.Models;
 
-namespace AvaloniaTodoApp.App;
+namespace AvaloniaTodoApp.Global;
 
 public class AppState
 {

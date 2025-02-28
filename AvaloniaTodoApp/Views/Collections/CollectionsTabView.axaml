@@ -2,19 +2,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:collections="clr-namespace:AvaloniaTodoAPp.ViewModels.Collections"
-             xmlns:collections1="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
+             xmlns:collections="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaTodoApp.Views.Controls.CollectionsTabView"
+             x:Class="AvaloniaTodoApp.Views.Collections.CollectionsTabView"
              x:DataType="collections:CollectionsTabViewModel">
 
     <Design.DataContext>
-        <collections:CollectionsTabViewModel >
-                <collections:CollectionsTabViewModel.Tabs>
-                    <collections1:CollectionItemViewModel Hidden="False" Title="Lista 1" />
-                    <collections1:CollectionItemViewModel Hidden="False" Title="Lista 2" />
-                    <collections1:CollectionItemViewModel Hidden="False" Title="Lista 3" />
-                </collections:CollectionsTabViewModel.Tabs>
+        <collections:CollectionsTabViewModel>
+            <collections:CollectionsTabViewModel.Tabs>
+                <collections:CollectionItemViewModel Title="Lista 1" />
+                <collections:CollectionItemViewModel Title="Lista 2" />
+                <collections:CollectionItemViewModel Title="Lista 3" />
+            </collections:CollectionsTabViewModel.Tabs>
         </collections:CollectionsTabViewModel>
     </Design.DataContext>
 

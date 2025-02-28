@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 
-namespace AvaloniaTodoApp.App;
+namespace AvaloniaTodoApp.Global;
 
 public static class ConfigManager
 {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AvaloniaTodoApp.App;
+using AvaloniaTodoApp.Global;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
-namespace AvaloniaTodoAPp.Models;
+namespace AvaloniaTodoApp.Models;
 
 [Table("collections")]
 public class SCollection : BaseModel

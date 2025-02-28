@@ -5,9 +5,9 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using AvaloniaTodoAPp.Converters;
+using AvaloniaTodoApp.Converters;
 
-namespace AvaloniaTodoAPp.Controls;
+namespace AvaloniaTodoApp.Controls;
 
 public class AvatarList : TemplatedControl
 {

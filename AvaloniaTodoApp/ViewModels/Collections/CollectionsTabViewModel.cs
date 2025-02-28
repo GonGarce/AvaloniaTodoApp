@@ -4,17 +4,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Messages;
-using AvaloniaTodoAPp.Models;
-using AvaloniaTodoApp.ViewModels.Collections;
+using AvaloniaTodoApp;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Messages;
+using AvaloniaTodoApp.Models;
+using AvaloniaTodoApp.ViewModels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Supabase.Realtime;
 using Supabase.Realtime.PostgresChanges;
 
-namespace AvaloniaTodoAPp.ViewModels.Collections;
+namespace AvaloniaTodoApp.ViewModels.Collections;
 
 public partial class CollectionsTabViewModel : ViewModelBase
 {

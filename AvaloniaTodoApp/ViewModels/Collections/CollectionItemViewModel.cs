@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Dialogs;
-using AvaloniaTodoAPp.Messages;
-using AvaloniaTodoAPp.Models;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Dialogs;
+using AvaloniaTodoApp.Messages;
+using AvaloniaTodoApp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;

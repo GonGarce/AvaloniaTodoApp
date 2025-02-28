@@ -1,7 +1,7 @@
-﻿using AvaloniaTodoAPp.Memento;
-using AvaloniaTodoAPp.ViewModels;
+﻿using AvaloniaTodoApp.Memento;
+using AvaloniaTodoApp.ViewModels;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace AvaloniaTodoAPp.Messages;
+namespace AvaloniaTodoApp.Messages;
 
 public class ChangedTodoTaskMessage(IMCommand command) : ValueChangedMessage<IMCommand>(command);

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Models;
-using AvaloniaTodoAPp.ViewModels;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Models;
+using AvaloniaTodoApp.ViewModels;
 using AvaloniaTodoApp.Views;
-using AvaloniaTodoAPp.Views;
 using Supabase.Gotrue;
 
-namespace AvaloniaTodoAPp.Client;
+namespace AvaloniaTodoApp.Client;
 
 public class LoginPage
 {

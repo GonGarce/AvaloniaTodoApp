@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
-namespace AvaloniaTodoAPp.Models;
+namespace AvaloniaTodoApp.Models;
 
 [Table("tasks")]
 public class STask : BaseModel

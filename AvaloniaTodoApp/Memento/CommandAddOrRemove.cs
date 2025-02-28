@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using AsyncAwaitBestPractices;
-using Avalonia.Threading;
-using AvaloniaTodoApp.App;
-using AvaloniaTodoAPp.Messages;
-using AvaloniaTodoAPp.Models;
-using AvaloniaTodoAPp.ViewModels;
-using CommunityToolkit.Mvvm.Messaging;
-using Supabase.Postgrest.Responses;
+using AvaloniaTodoApp;
+using AvaloniaTodoApp.Global;
+using AvaloniaTodoApp.Messages;
+using AvaloniaTodoApp.Models;
+using AvaloniaTodoApp.ViewModels;
 
-namespace AvaloniaTodoAPp.Memento;
+namespace AvaloniaTodoApp.Memento;
 
 public abstract class CommandAddOrRemoveTask(TodoTaskViewModel task) : IMCommand
 {

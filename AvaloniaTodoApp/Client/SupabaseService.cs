@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
-using Avalonia.Controls.Notifications;
-using AvaloniaTodoApp.App;
-using Microsoft.Extensions.Configuration;
+using AvaloniaTodoApp.Global;
 using Supabase.Gotrue;
 
-namespace AvaloniaTodoAPp.Client;
+namespace AvaloniaTodoApp.Client;
 
 using System.Threading.Tasks;
 using Client = Supabase.Client;
