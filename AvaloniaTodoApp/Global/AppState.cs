@@ -7,7 +7,7 @@ namespace AvaloniaTodoApp.Global;
 
 public class AppState
 {
-    public const bool Test = false;
+    public const bool Test = true;
 
     private AppState()
     {

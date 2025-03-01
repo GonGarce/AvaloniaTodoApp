@@ -29,7 +29,7 @@
             </StackPanel>
             <StackPanel>
                 <Button Command="{Binding SelectCommand}">Load</Button>
-                <Button Command="{Binding InviteCommand}">Invite</Button>
+                <Button Tapped="TapInvite">Invite</Button>
             </StackPanel>
         </StackPanel>
     </dialogHostAvalonia:DialogHost>

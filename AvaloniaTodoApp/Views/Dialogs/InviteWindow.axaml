@@ -4,69 +4,100 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dialogs="clr-namespace:AvaloniaTodoApp.ViewModels.Dialogs"
         xmlns:controls="clr-namespace:AvaloniaTodoApp.Controls"
+        xmlns:i="https://github.com/projektanker/icons.avalonia"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="600"
         Width="500" Height="600"
         x:Class="AvaloniaTodoApp.Views.Dialogs.InviteWindow"
+        ExtendClientAreaToDecorationsHint="True"
+        TransparencyLevelHint="AcrylicBlur"
         Title="InviteDialog">
 
     <Design.DataContext>
         <dialogs:InviteDialogViewModel />
     </Design.DataContext>
 
-    <Grid Margin="18">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Gongarce's task list" FontWeight="Bold" FontSize="18" />
-        <StackPanel Grid.Row="1" Orientation="Vertical">
-            <TextBlock Text="Created on 16/02/2025" />
-        </StackPanel>
-        <TextBox Grid.Row="2" />
-        <TextBlock Grid.Row="3" Text="3 People" />
-        <ItemsControl Grid.Row="4">
-            <ItemsControl.Items>
-                <StackPanel Orientation="Vertical">
-                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
-                        <controls:Avatar Grid.Column="0" Username="Gonzalo" Size="40" />
-                        <StackPanel Grid.Column="1" Margin="8 ">
-                            <TextBlock Text="You" FontWeight="Bold"></TextBlock>
-                            <TextBlock Text="Admin" FontSize="13" Opacity="0.8"></TextBlock>
-                        </StackPanel>
-                        <Button Grid.Column="2" Classes="icon danger">
-                            <PathIcon Data="{StaticResource Delete}" />
-                        </Button>
-                    </Grid>
-                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
-                        <controls:Avatar Grid.Column="0" Username="Alex" Size="40" Opacity="0.5" />
-                        <StackPanel Grid.Column="1" Margin="8 " Opacity="0.5">
-                            <TextBlock Text="Alex" FontWeight="Bold"></TextBlock>
-                            <TextBlock Text="Request sent" FontSize="13" Opacity="0.8"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                            <Button Classes="icon primary">
-                                <PathIcon Data="{StaticResource ArrowUndoRegular}" />
-                            </Button>
-                            <Button Classes="icon danger">
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="{DynamicResource SystemRegionColor}"
+                    TintOpacity="1"
+                    MaterialOpacity="0.4" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <Grid Margin="18">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Gongarce's task list" FontWeight="Bold" FontSize="18" />
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <TextBlock Text="Created on 16/02/2025" FontSize="14" Opacity="0.8" />
+            </StackPanel>
+            <TextBox Grid.Row="2" Margin="0 16 0 8">
+                <TextBox.InnerRightContent>
+                    <Button Classes="icon primary">
+                        <i:Icon Value="mdi-email-arrow-right-outline" />
+                    </Button>
+                </TextBox.InnerRightContent>
+            </TextBox>
+            <TextBlock Grid.Row="3" Text="3 People" FontWeight="Medium" />
+            <ItemsControl Grid.Row="4" Margin="0 8 0 0">
+                <ItemsControl.Items>
+                    <StackPanel Orientation="Vertical">
+                        <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
+                            <Canvas Grid.Column="0" Width="48" Height="48">
+                                <controls:Avatar Username="Gonzalo" Size="48"
+                                                 BorderBrush="{DynamicResource PrimaryColor}"
+                                                 BorderThickness="2" />
+                                <Ellipse Canvas.Bottom="0" Canvas.Right="0"
+                                         Fill="{DynamicResource PrimaryColor}"
+                                         Width="20" Height="20" />
+                                <i:Icon Value="mdi-crown"
+                                        Canvas.Bottom="2" Canvas.Right="2"
+                                        FontSize="16" Foreground="White" />
+                            </Canvas>
+                            <StackPanel Grid.Column="1" Margin="8 0" VerticalAlignment="Center">
+                                <TextBlock Text="You" FontWeight="Bold" FontSize="16" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Text="gon@gmail.com" FontSize="14" Opacity="0.8" />
+                            </StackPanel>
+                            <Button Grid.Column="2" Classes="icon danger">
                                 <PathIcon Data="{StaticResource Delete}" />
                             </Button>
-                        </StackPanel>
-                    </Grid>
-                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
-                        <controls:Avatar Grid.Column="0" Username="Pau" Size="40" />
-                        <StackPanel Grid.Column="1" Margin="8 ">
-                            <TextBlock Text="Pau" FontWeight="Bold"></TextBlock>
-                            <TextBlock Text="" FontSize="13" Opacity="0.8"></TextBlock>
-                        </StackPanel>
-                        <Button Grid.Column="2" Classes="icon danger">
-                            <PathIcon Data="{StaticResource Delete}" />
-                        </Button>
-                    </Grid>
-                </StackPanel>
-            </ItemsControl.Items>
-        </ItemsControl>
-    </Grid>
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
+                            <controls:Avatar Grid.Column="0" Username="Alex" Size="48" Opacity="0.5" />
+                            <StackPanel Grid.Column="1" Margin="8 0" VerticalAlignment="Center"
+                                        Opacity="0.5">
+                                <TextBlock Text="Alex" FontWeight="Bold" FontSize="16"></TextBlock>
+                                <TextBlock Text="alex@gmail.com" FontSize="14" Opacity="0.8" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                <Button Classes="icon primary">
+                                    <i:Icon Value="mdi-email-sync-outline" />
+                                </Button>
+                                <Button Classes="icon danger">
+                                    <PathIcon Data="{StaticResource Delete}" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto, *, Auto" Margin="0 6">
+                            <controls:Avatar Grid.Column="0" Username="Pau" Size="48" />
+                            <StackPanel Grid.Column="1" Margin="8 0" VerticalAlignment="Center">
+                                <TextBlock Text="Paula" FontWeight="Bold" FontSize="16"></TextBlock>
+                                <TextBlock Text="pau.lita@gmail.com" FontSize="14" Opacity="0.8" />
+                            </StackPanel>
+                            <Button Grid.Column="2" Classes="icon danger">
+                                <PathIcon Data="{StaticResource Delete}" />
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </ItemsControl.Items>
+            </ItemsControl>
+        </Grid>
+    </Panel>
 </Window>

@@ -15,6 +15,7 @@ using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
 using Supabase.Postgrest;
 using System.Threading.Tasks;
+using AvaloniaTodoApp.Views.Dialogs;
 
 namespace AvaloniaTodoApp.ViewModels;
 
@@ -66,7 +67,7 @@ public partial class TestWindowViewModel : ViewModelBase
     [RelayCommand]
     private async Task Invite()
     {
-        var result = await DialogHost.Show(new DeleteDialogModel(""), "CollectionsDialogHost");
+        var result = await DialogHost.Show(new InviteWindow(), "CollectionsDialogHost");
     }
 
     [ObservableProperty]

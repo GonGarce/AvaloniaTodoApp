@@ -1,5 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonia="https://github.com/projektanker/icons.avalonia">
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
@@ -24,6 +25,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="36" />
         <Setter Property="Height" Value="36" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Cursor" Value="Hand" />
     </Style>
     <Style Selector="Button.icon:pointerover /template/ ContentPresenter">
@@ -45,6 +47,9 @@
         <Setter Property="Width" Value="24" />
         <Setter Property="Height" Value="24" />
     </Style>
+    <Style Selector="Button.icon avalonia|Icon">
+        <Setter Property="FontSize" Value="28" />
+    </Style>
     <!-- Button Icon Colors -->
     <Style Selector="Button.icon:disabled PathIcon">
         <Setter Property="Foreground" Value="LightSlateGray" />
@@ -59,6 +64,22 @@
         <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
     </Style>
     <Style Selector="Button.icon.primary:pressed PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColorDark}" />
+    </Style>
+
+    <Style Selector="Button.icon:disabled avalonia|Icon">
+        <Setter Property="Foreground" Value="LightSlateGray" />
+    </Style>
+    <Style Selector="Button.icon.danger:pointerover avalonia|Icon">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColor}" />
+    </Style>
+    <Style Selector="Button.icon.danger:pressed  avalonia|Icon">
+        <Setter Property="Foreground" Value="{DynamicResource DangerColorDark}" />
+    </Style>
+    <Style Selector="Button.icon.primary:pointerover avalonia|Icon">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+    </Style>
+    <Style Selector="Button.icon.primary:pressed avalonia|Icon">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryColorDark}" />
     </Style>
 
@@ -101,10 +122,10 @@
         <Setter Property="Width" Value="16" />
         <Setter Property="Height" Value="16" />
     </Style>
-    <!-- Button Stroke Colors -->
     <Style Selector="Button.icon.stroke:disabled PathIcon">
         <Setter Property="Foreground" Value="Black" />
     </Style>
+    <!-- Button Stroke Colors -->
     <Style Selector="Button.stroke.danger">
         <Setter Property="Foreground" Value="{DynamicResource DangerColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource DangerColor}" />

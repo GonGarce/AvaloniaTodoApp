@@ -9,6 +9,7 @@
         xmlns:controls1="clr-namespace:AvaloniaTodoApp.Controls"
         xmlns:collections="clr-namespace:AvaloniaTodoApp.ViewModels.Collections"
         xmlns:collections1="clr-namespace:AvaloniaTodoApp.Views.Collections"
+        xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
         MinWidth="720" MinHeight="480"
         x:DataType="vm:MainWindowViewModel"

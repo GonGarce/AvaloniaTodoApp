@@ -10,7 +10,7 @@
                 <!-- Force using default Theme Variant -->
                 <ThemeVariantScope RequestedThemeVariant="Default">
                     <StackPanel Spacing="10" Background="{DynamicResource SystemRegionBrush}">
-                        <controls:Avatar Username="Gonzalo" Size="32" BorderBrush="DarkGray" BorderThickness="2" />
+                        <controls:Avatar Username="Pau" Size="48" BorderBrush="DarkGray" BorderThickness="2" />
                         <controls:Avatar Color="White" BorderBrush="DarkGray" BorderThickness="2"
                                          Foreground="Black" Text="+12" FontSize="12" FontWeight="Bold" />
                         <controls:Avatar Image="avares://AvaloniaTodoApp/Assets/horizontal1.jpg" />
